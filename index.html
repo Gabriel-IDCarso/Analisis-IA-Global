@@ -3,19 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA en Telecomunicaciones Globales | AMX Insight</title>
+    <title>Inteligencia Artificial en Empresas de Telecomunicación | ID Carso</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
         :root {
-            /* AMX / Telmex Executive Dark Palette */
             --bg-base: #030712;
             --bg-surface: rgba(10, 19, 34, 0.7);
             --bg-surface-elevated: rgba(17, 29, 51, 0.9);
-            
-            /* Gris oscuro neutro/carbón para el sidebar */
             --nav-bg: rgba(40, 44, 52, 0.98); 
-            
             --primary-blue: #0056b3;
             --accent-cyan: #00d2ff;
             --text-main: #f8fafc;
@@ -24,7 +20,6 @@
             --glow-shadow: 0 0 25px rgba(0, 210, 255, 0.2);
         }
 
-        /* Base Typography Increased for Legibility */
         html {
             font-size: 18px;
         }
@@ -111,7 +106,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #9ba4b5; /* Tono de gris claro para contraste en el sidebar */
+            color: #9ba4b5; 
             font-size: 1.05rem;
             font-weight: 500;
             padding: 1rem 1.2rem;
@@ -138,20 +133,37 @@
         /* --- Main Content --- */
         main {
             margin-left: 300px;
-            padding: 5rem;
+            padding: 4rem 5rem;
             width: calc(100% - 300px);
             max-width: 1600px;
         }
 
+        /* --- Secciones Alternadas (Azul / Gris) --- */
         section {
-            margin-bottom: 10rem;
+            margin-bottom: 5rem;
             scroll-margin-top: 5rem;
             position: relative;
             z-index: 2;
+            padding: 4rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
 
-        /* --- Hero Section & 3D Element --- */
+        .bg-blue {
+            background: linear-gradient(145deg, rgba(10, 19, 34, 0.85), rgba(0, 86, 179, 0.15));
+            border: 1px solid rgba(0, 210, 255, 0.15);
+        }
+
+        .bg-gray {
+            background: linear-gradient(145deg, rgba(20, 25, 35, 0.9), rgba(40, 44, 52, 0.6));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
         #inicio {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -240,7 +252,7 @@
             color: #fff;
             margin-bottom: 2.5rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             position: relative;
             letter-spacing: -0.5px;
         }
@@ -255,13 +267,6 @@
             background: var(--accent-cyan);
             box-shadow: 0 0 15px var(--accent-cyan);
             border-radius: 3px;
-        }
-
-        h3 {
-            font-size: 1.6rem;
-            color: var(--accent-cyan);
-            margin: 3rem 0 1.5rem 0;
-            font-weight: 600;
         }
 
         p {
@@ -279,17 +284,20 @@
             border-left: 4px solid var(--accent-cyan);
             padding-left: 1rem;
         }
+        
+        .subtitle strong {
+            font-weight: 600;
+            color: #fff;
+        }
 
         /* --- Tables --- */
         .table-container {
             width: 100%;
             overflow-x: auto;
-            background: var(--bg-surface);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
             border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
             margin-top: 2.5rem;
         }
 
@@ -297,138 +305,61 @@
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            min-width: 800px;
+            min-width: 900px;
         }
 
         th {
-            background: var(--bg-surface-elevated);
-            color: #fff;
-            font-weight: 600;
+            background: rgba(0,0,0,0.6);
+            color: var(--accent-cyan);
+            font-weight: 700;
             padding: 1.5rem;
             font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-bottom: 2px solid var(--border-color);
+            border-bottom: 2px solid var(--accent-cyan);
+        }
+
+        /* Group companies by tbody for alternating backgrounds */
+        tbody {
+            border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s;
+        }
+        
+        tbody:nth-child(odd) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        tbody:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        tbody:hover {
+            background-color: rgba(0, 210, 255, 0.04);
         }
 
         td {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 1.05rem;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            font-size: 1rem;
             color: var(--text-main);
             line-height: 1.6;
+            vertical-align: top;
         }
 
         tr:last-child td { border-bottom: none; }
-        tr:hover td { background: rgba(0, 210, 255, 0.04); }
+
+        .company-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #fff;
+            background: rgba(255,255,255,0.02);
+            vertical-align: middle;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+
         td strong { color: var(--accent-cyan); font-weight: 600; }
 
-        /* --- Cards & Grids --- */
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2.5rem;
-        }
-
-        .card {
-            background: var(--bg-surface);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--accent-cyan), var(--primary-blue));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 210, 255, 0.15);
-            border-color: rgba(0, 210, 255, 0.4);
-        }
-
-        .card:hover::before { opacity: 1; }
-
-        .card-number {
-            font-size: 4rem;
-            font-weight: 800;
-            color: rgba(255, 255, 255, 0.03);
-            position: absolute;
-            top: -15px;
-            right: 15px;
-            pointer-events: none;
-        }
-
-        .card h4 {
-            color: #fff;
-            font-size: 1.4rem;
-            margin-bottom: 1.2rem;
-            z-index: 2;
-            position: relative;
-        }
-
-        /* --- Estilo Especial: Pilares Fundamentales --- */
-        .pillar-card {
-            background: linear-gradient(145deg, rgba(17, 29, 51, 0.95), rgba(10, 19, 34, 0.8));
-            border: 1px solid rgba(0, 210, 255, 0.25);
-            box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.05), 0 10px 30px rgba(0,0,0,0.4);
-            padding: 2.5rem;
-            border-radius: 16px;
-            position: relative;
-            transition: all 0.4s ease;
-        }
-        
-        .pillar-card:hover {
-            border: 1px solid rgba(0, 210, 255, 0.6);
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: inset 0 0 30px rgba(0, 210, 255, 0.1), 0 15px 40px rgba(0, 210, 255, 0.2);
-        }
-
-        .pillar-card h4 {
-            color: var(--accent-cyan);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .pillar-card .pillar-num {
-            background: rgba(0, 210, 255, 0.15);
-            color: #fff;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border: 1px solid var(--accent-cyan);
-        }
-
-        .pillar-desc {
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        /* --- List Cards Horizontales para el Top 10 --- */
+        /* --- Horizontal Cards (Pilares & Conclusions) --- */
         .list-cards {
             display: flex;
             flex-direction: column;
@@ -437,9 +368,8 @@
         }
 
         .horizontal-card {
-            background: var(--bg-surface);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 16px;
             padding: 2.5rem;
             transition: all 0.4s ease;
@@ -464,19 +394,20 @@
         }
 
         .horizontal-card:hover {
-            transform: translateX(15px); /* Deslizamiento lateral */
+            transform: translateX(15px); 
             box-shadow: 0 20px 40px rgba(0, 210, 255, 0.15);
             border-color: rgba(0, 210, 255, 0.4);
+            background: rgba(10, 19, 34, 0.9);
         }
 
         .horizontal-card:hover::before { opacity: 1; }
 
         .hc-number {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            color: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.1);
             flex-shrink: 0;
-            width: 90px;
+            width: 80px;
             text-align: center;
         }
 
@@ -485,14 +416,9 @@
         }
 
         .hc-content h4 {
-            color: #fff;
-            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            font-size: 1.6rem;
             margin-bottom: 0.8rem;
-        }
-
-        .hc-content p {
-            margin-bottom: 0.8rem;
-            color: var(--text-muted);
         }
 
         .hc-badge {
@@ -507,6 +433,35 @@
             font-weight: 500;
         }
 
+        /* --- Grid Cards (Conclusion Opportunities) --- */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 15px 30px rgba(0,210,255,0.15);
+        }
+
+        .card h4 {
+            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
         /* --- Animaciones de Aparición --- */
         .reveal {
             opacity: 0;
@@ -519,30 +474,17 @@
             transform: translateY(0);
         }
 
-        .badge {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: rgba(0, 210, 255, 0.1);
-            color: var(--accent-cyan);
-            border: 1px solid rgba(0, 210, 255, 0.3);
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.5px;
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.1);
-        }
-
         /* --- Responsive Design --- */
         @media (max-width: 1200px) {
             #inicio { flex-direction: column; text-align: center; justify-content: center; padding-top: 5rem; }
             .hero-graphic { height: 300px; margin-top: 2rem; }
             .subtitle { border-left: none; border-bottom: 2px solid var(--accent-cyan); padding-bottom: 1rem; display: inline-block; }
+            section { padding: 3rem; }
         }
 
         @media (max-width: 1024px) {
             nav { width: 250px; padding: 2rem 1.5rem; }
-            main { margin-left: 250px; width: calc(100% - 250px); padding: 4rem 3rem; }
+            main { margin-left: 250px; width: calc(100% - 250px); padding: 3rem 2rem; }
             h1 { font-size: 3rem; }
             h2 { font-size: 2.2rem; }
         }
@@ -559,7 +501,7 @@
                 border-right: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.05);
                 z-index: 100;
-                background: rgba(40, 44, 52, 1); /* Sólido en móvil */
+                background: rgba(40, 44, 52, 1); 
             }
             .brand { margin-bottom: 1.5rem; }
             .nav-links { 
@@ -581,11 +523,10 @@
                 background: linear-gradient(to top, rgba(0, 210, 255, 0.15) 0%, transparent 100%); 
             }
             
-            main { margin-left: 0; width: 100%; padding: 2rem 1.5rem; }
+            main { margin-left: 0; width: 100%; padding: 2rem 1rem; }
+            section { padding: 2rem 1.5rem; border-radius: 12px; }
             h1 { font-size: 2.5rem; }
-            .grid-cards { grid-template-columns: 1fr; }
             
-            /* Ajuste de tarjetas horizontales para móvil */
             .horizontal-card {
                 flex-direction: column;
                 align-items: flex-start;
@@ -599,7 +540,7 @@
                 margin-bottom: -15px;
             }
             .horizontal-card:hover {
-                transform: translateY(-5px); /* Deslizamiento vertical en móvil en vez de horizontal */
+                transform: translateY(-5px); 
             }
         }
     </style>
@@ -613,18 +554,17 @@
     <nav>
         <div class="brand">
             <div class="brand-dot"></div>
-            AMX <span>Insight</span>
+            ID <span>Carso</span>
         </div>
         <ul class="nav-links">
             <li><a href="#inicio" class="active">00. Portada</a></li>
-            <li><a href="#metodologia">01. Metodología</a></li>
-            <li><a href="#asia">02. Asia: Cómputo</a></li>
-            <li><a href="#europa">03. Europa: Eficiencia</a></li>
-            <li><a href="#africa">04. África: Fintech</a></li>
-            <li><a href="#america">05. América: Escala</a></li>
-            <li><a href="#oceania">06. Oceanía: Satelital</a></li>
-            <li><a href="#estrategia">07. Estrategia AMX</a></li>
-            <li><a href="#top10">08. Top 10 Proyectos</a></li>
+            <li><a href="#asia">01. Asia</a></li>
+            <li><a href="#europa">02. Europa</a></li>
+            <li><a href="#africa">03. África</a></li>
+            <li><a href="#america">04. América</a></li>
+            <li><a href="#oceania">05. Oceanía</a></li>
+            <li><a href="#pilares">06. Los 5 Pilares</a></li>
+            <li><a href="#conclusiones">07. Conclusiones</a></li>
         </ul>
     </nav>
 
@@ -634,12 +574,10 @@
         <!-- Hero Section con Elemento 3D Interactivo -->
         <section id="inicio" class="reveal active">
             <div class="hero-text">
-                <div class="badge">Documento Maestro Integrado</div>
-                <h1>Inteligencia Artificial en<br>Telecomunicaciones Globales</h1>
-                <p class="subtitle">De la automatización de operaciones a la construcción de redes inteligentes, resilientes y financieramente relevantes.</p>
-                <p>Análisis actualizado a agosto de 2026, diseñado para formular una estrategia factible para América Móvil en LATAM.</p>
+                <h1>Inteligencia Artificial en<br>Empresas de Telecomunicación</h1>
+                <p class="subtitle">Análisis actualizado a agosto de 2026<br><strong>Innovación Digital CARSO</strong></p>
             </div>
-            <!-- Elemento 3D Interactivo (Este sí reacciona al mouse) -->
+            <!-- Elemento 3D Interactivo -->
             <div class="hero-graphic" id="core-3d">
                 <div class="ring"></div>
                 <div class="ring"></div>
@@ -647,455 +585,788 @@
             </div>
         </section>
 
-        <!-- Section 1 -->
-        <section id="metodologia" class="reveal">
-            <h2>1. Metodología y Criterios de Consolidación</h2>
-            <div class="card" style="margin-top: 1rem;">
-                <p><strong>Selección de empresas:</strong> El ranking por continente se basa en ingresos anuales, capitalización de mercado y base de suscriptores, tomando en cuenta reportes financieros de 2025 y el primer semestre de 2026. El continente americano se agrupa como una sola región.</p>
-                <p><strong>Precisión Financiera:</strong> Los datos reflejan cifras oficiales o estimaciones del sector confirmadas; cuando un ahorro financiero no es exclusivamente atribuible a la IA (sino a programas de transformación amplios), se ha etiquetado de manera transparente.</p>
-            </div>
-        </section>
-
-        <!-- Section 2: Asia -->
-        <section id="asia" class="reveal">
-            <h2>2. Líderes Asiáticos: Infraestructura Soberana</h2>
-            <p>En Asia, las empresas han evolucionado para convertirse en proveedores masivos de poder de cómputo de IA para sus gobiernos e industrias.</p>
+        <!-- Section 1: Asia -->
+        <section id="asia" class="reveal bg-blue">
+            <h2>Líderes Asiáticos: Infraestructura Soberana</h2>
+            <p>El mercado asiático encabeza el despliegue de infraestructura donde los servicios de IA se enfocan en gobierno e industria.</p>
             
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Empresa</th>
-                            <th>Proyecto Destacado</th>
+                            <th>Proyecto Implementado</th>
                             <th>¿Qué hace en la práctica?</th>
                             <th>Impacto (US$) / Resultado</th>
                         </tr>
                     </thead>
+                    <!-- China Mobile -->
                     <tbody>
                         <tr>
-                            <td><strong>China Mobile</strong></td>
-                            <td>Copiloto GenAI con Nokia</td>
-                            <td>Un asistente invisible que ayuda a los ingenieros a reparar la red hablando con ellos en lenguaje normal.</td>
-                            <td>Ahorro: <strong>$7M</strong>. Ingresos IA crecieron 279%.</td>
+                            <td rowspan="5" class="company-name">China Mobile</td>
+                            <td><strong>MoMA (Plataforma MaaS)</strong></td>
+                            <td>Utiliza algoritmos de IA de enrutamiento inteligente para elegir automáticamente cuál de sus 300 modelos de Inteligencia Artificial integrados resuelve una tarea de la manera más rápida y económica.</td>
+                            <td>Reduce el costo por procesamiento (token) en un <strong>30%</strong> y ofrece modelos de IA confidenciales para bancos.</td>
                         </tr>
                         <tr>
-                            <td><strong>NTT (Japón)</strong></td>
-                            <td>Adquisición NTT Data</td>
-                            <td>Construir cables especiales que gastan poquísima luz y mueven datos a velocidades increíbles.</td>
-                            <td>Inversión: <strong>$16,400M</strong>. Reduce 99% el consumo de energía.</td>
+                            <td><strong>Jiutian v3.0</strong></td>
+                            <td>Implementa un gran modelo de Inteligencia Artificial (LLM) entrenado específicamente con datos de telecomunicaciones para operar la red de forma autónoma y asistir a clientes empresariales.</td>
+                            <td>El segmento de cómputo inteligente e IA generó <strong>$13,000M</strong> (crecimiento del 279%).</td>
                         </tr>
                         <tr>
-                            <td><strong>China Telecom</strong></td>
-                            <td>Red WAN de IA</td>
-                            <td>Conectar varias ciudades como si fueran una sola súper computadora.</td>
-                            <td>Logró un <strong>95%</strong> de eficiencia en entrenamiento distribuido.</td>
+                            <td><strong>Copiloto GenAI (AIOps)</strong></td>
+                            <td>Despliega una IA Generativa que "conversa" en lenguaje natural con los ingenieros, guiándolos paso a paso y diagnosticando las fallas de red complejas en tiempo real.</td>
+                            <td>Ahorro OPEX comprobado de <strong>$7 millones</strong> solo en eficiencias de red asistidas por IA.</td>
                         </tr>
                         <tr>
-                            <td><strong>SoftBank</strong></td>
-                            <td>OpenAI y Arm</td>
-                            <td>Invertir en los creadores de ChatGPT y chips de IA para dominar la tecnología del futuro.</td>
-                            <td>Ganancia: <strong>$4,200M</strong> (trimestre). El 60%+ de su valor está en IA.</td>
+                            <td><strong>Lingxi Smart Agent</strong></td>
+                            <td>Usa un agente de Inteligencia Artificial en la nube como asistente personal de los usuarios, gestionando interacciones, servicios y suscripciones de forma proactiva.</td>
+                            <td>Retención incrementada en su app móvil, superando los <strong>100 millones de usuarios activos</strong>.</td>
                         </tr>
                         <tr>
-                            <td><strong>China Unicom</strong></td>
-                            <td>Capex a Cómputo IA</td>
-                            <td>Dejar de gastar en antenas normales para comprar computadoras gigantes para IA.</td>
-                            <td>Capex IA: <strong>$7,200M</strong>. Ingresos IA crecieron 147%.</td>
+                            <td><strong>Mantenimiento Predictivo IA</strong></td>
+                            <td>Algoritmos de IA que procesan millones de datos de la red nacional, localizando anomalías y aislando fallas en cuestión de minutos, con latencias de 1 milisegundo.</td>
+                            <td>Automatización radical en la resolución de caídas técnicas a nivel nacional.</td>
+                        </tr>
+                    </tbody>
+                    
+                    <!-- NTT -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="5" class="company-name">NTT (Japón)</td>
+                            <td><strong>Infraestructura IOWN</strong></td>
+                            <td>Emplea Inteligencia Artificial y fotónica para crear "Gemelos Digitales" de la red, procesando datos usando luz en lugar de electricidad para evitar cuellos de botella del hardware convencional.</td>
+                            <td>Promete <strong>100x menos consumo eléctrico</strong> y 125x más capacidad. Inversión corporativa de $16,400M.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NTT tsuzumi</strong></td>
+                            <td>Utiliza un modelo de IA hiper-ligero (y comprimido inteligentemente) capaz de entender el japonés empresarial procesando en computadoras normales, sin requerir súper servidores con tarjetas gráficas masivas.</td>
+                            <td>Ahorros millonarios en CAPEX de servidores al democratizar la IA.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LITRON (Agentes IA)</strong></td>
+                            <td>Aplica Agentes Autónomos impulsados por IA para procesar montañas de documentación y acelerar las ventas y operaciones empresariales B2B.</td>
+                            <td>Mejora directa en los ciclos de ventas y análisis de contratos mediante IA.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GPU over APN Testbed</strong></td>
+                            <td>Usa una red de baja latencia gestionada por Inteligencia Artificial para conectar tarjetas gráficas ubicadas en diferentes ciudades de Japón, haciendo que funcionen como si fueran una sola súper computadora de IA.</td>
+                            <td>Optimiza recursos de hardware para IA descentralizados a nivel nacional.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Seguridad 6G con IA y AR</strong></td>
+                            <td>Combina IA predictiva y realidad aumentada para brindar soporte visual de seguridad en tiempo real a los trabajadores de campo y de red.</td>
+                            <td>Prevención de accidentes laborales e incidentes críticos apoyada en IA.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- China Telecom -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="4" class="company-name">China Telecom</td>
+                            <td><strong>Red WAN de IA</strong></td>
+                            <td>Usa algoritmos de IA (Machine Learning) para orquestar y programar el tráfico de los centros de datos de varias ciudades, logrando que entrenen modelos de IA gigantes en perfecta sincronía.</td>
+                            <td>Logró <strong>95% de eficiencia</strong> en el entrenamiento distribuido de Inteligencia Artificial.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ecosistema Xingchen</strong></td>
+                            <td>Implementa modelos multimodales (visión y texto de IA) para desplegar más de 900 "empleados digitales" que configuran la red 5G de forma autónoma (Zero-Touch).</td>
+                            <td>La IA aceleró la resolución de fallos y aumentó ingresos Pyme en un 21%.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Operación basada en Tokens</strong></td>
+                            <td>Sistema impulsado por IA que gestiona la facturación inteligente del poder de cómputo en la nube, cobrando a los clientes según el nivel exacto de procesamiento que su IA consumió.</td>
+                            <td>El segmento de infraestructura de IA y cómputo generó ingresos por <strong>$4,800M</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Desarrollo de Software IA</strong></td>
+                            <td>Usa Inteligencia Artificial Generativa internamente para que los desarrolladores de la empresa escriban código más rápido; la IA ya sugiere e implementa automáticamente gran parte del software de la compañía.</td>
+                            <td>Incrementó la productividad de Investigación y Desarrollo (R&D) en un 20%.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- SoftBank -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" class="company-name">SoftBank</td>
+                            <td><strong>Red AI-RAN</strong></td>
+                            <td>Integra chips de Inteligencia Artificial directamente en las antenas 5G, usando aprendizaje automático para que la misma antena que da internet a celulares, sirva como "cerebro" para autos autónomos.</td>
+                            <td>La IA convierte las antenas subutilizadas en un motor de ingresos masivo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ecosistema OpenAI/Arm</strong></td>
+                            <td>Capitaliza financieramente la inteligencia artificial invirtiendo fuertemente en OpenAI y diseñando la arquitectura de los procesadores (Arm) que el mundo usará para la IA.</td>
+                            <td>Ganancias de <strong>$4,200M</strong> por OpenAI. El 60%+ del valor del grupo SoftBank está en IA.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI Marketplace en el Borde</strong></td>
+                            <td>Plataforma que descentraliza la IA, llevando el procesamiento inteligente a los servidores de las ciudades locales, garantizando que los datos no salgan del país (IA Soberana).</td>
+                            <td>Captura el nicho de mercado para privacidad de datos e IA gubernamental.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- China Unicom -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" class="company-name">China Unicom</td>
+                            <td><strong>AINet (Asignación Inteligente)</strong></td>
+                            <td>Usa Inteligencia Artificial de predicción para saber qué sector industrial ocupará más internet y redirige dinámicamente las frecuencias de las antenas para evitar cuellos de botella.</td>
+                            <td>Ingresos relacionados con IA crecieron <strong>147%</strong>. Capex en IA de $7,200M.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LLM Industrial Yuanjing</strong></td>
+                            <td>Combina grandes modelos de lenguaje de IA con visión por computadora para interpretar comandos y operar maquinaria pesada, grúas o minas a distancia usando la red 5G.</td>
+                            <td>La IA domina los contratos multimillonarios en la automatización B2B.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Soporte Digital IA</strong></td>
+                            <td>Despliega IA de procesamiento de lenguaje natural de última generación que maneja consultas masivas e interacciones iniciales en call centers sin requerir operadores humanos.</td>
+                            <td>Ahorros de decenas de millones en OPEX derivado de la contención con Inteligencia Artificial.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- Section 3: Europa -->
-        <section id="europa" class="reveal">
-            <h2>3. Líderes Europeos: Eficiencia y Reducción</h2>
-            <p>El mercado europeo utiliza la IA para eficientar operaciones pesadas, establecer redes "verdes" y firmar alianzas con gigantes estadounidenses.</p>
+        <!-- Section 2: Europa -->
+        <section id="europa" class="reveal bg-gray">
+            <h2>Líderes Europeos: Eficiencia y Redes Verdes</h2>
+            <p>Europa se enfoca en usar la IA para eficientar operaciones heredadas, ahorrar recursos energéticos y proteger los datos soberanos de sus ciudadanos.</p>
             
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Empresa</th>
-                            <th>Proyecto Destacado</th>
+                            <th>Proyecto Implementado</th>
                             <th>¿Qué hace en la práctica?</th>
-                            <th>Impacto / Resultado</th>
+                            <th>Impacto (US$/€/£) / Resultado</th>
                         </tr>
                     </thead>
+                    <!-- Deutsche Telekom -->
                     <tbody>
                         <tr>
-                            <td><strong>Deutsche Telekom</strong></td>
-                            <td>Industrial AI Cloud</td>
-                            <td>Una "fábrica de cerebros artificiales" que le rentan a otras empresas B2B.</td>
-                            <td>Despliegue de <strong>10,000 GPUs</strong>.</td>
+                            <td rowspan="5" class="company-name">Deutsche Telekom</td>
+                            <td><strong>LMOS (Ask Magenta IA)</strong></td>
+                            <td>Emplea una arquitectura de Modelos de Inteligencia Artificial que no solo dialoga, sino que es una "IA Agéntica" capaz de ejecutar comandos técnicos en las cuentas de clientes de forma autónoma.</td>
+                            <td>La IA atiende más de <strong>4 millones de conversaciones</strong> al año, desplomando el OPEX.</td>
                         </tr>
                         <tr>
-                            <td><strong>Vodafone</strong></td>
-                            <td>SuperAgent (Microsoft)</td>
-                            <td>Un recepcionista virtual que atiende a miles a la vez sin dejarlos en espera.</td>
-                            <td>Inversión: <strong>$1,500M</strong>. Meta: ahorrar €1,100M anuales (~11,000 recortes).</td>
+                            <td><strong>Industrial AI Cloud</strong></td>
+                            <td>Despliega una "fábrica de IA" usando 10,000 tarjetas gráficas administradas inteligentemente para rentar procesamiento masivo y seguro a las fábricas alemanas.</td>
+                            <td>Crea un nuevo canal de ingresos B2B de IA e infraestructura soberana.</td>
                         </tr>
                         <tr>
-                            <td><strong>Orange</strong></td>
-                            <td>Automatización RPA</td>
-                            <td>Robots de software que hacen el papeleo administrativo súper rápido.</td>
-                            <td>Ahorro global: <strong>€600M</strong>. 500,000 horas de trabajo anuales ahorradas.</td>
+                            <td><strong>IA Espacial para Fibra</strong></td>
+                            <td>Utiliza algoritmos de Inteligencia Artificial y visión por computadora para analizar la topografía y decidir automáticamente la ruta más barata y rápida para instalar cables de fibra óptica.</td>
+                            <td>La IA soporta el crecimiento y las proyecciones de su EBITDA.</td>
                         </tr>
                         <tr>
-                            <td><strong>Telefónica</strong></td>
-                            <td>Compresión de IA</td>
-                            <td>Hacer que los "cerebros" de IA sean pequeños para gastar menos luz.</td>
-                            <td>Ahorro del <strong>75%</strong> de energía al comprimir LLMs un 95%.</td>
+                            <td><strong>Modo Suspensión IA</strong></td>
+                            <td>Algoritmos de IA (Machine Learning) que aprenden los patrones de tráfico de los usuarios y apagan las antenas en las madrugadas para ahorrar energía, despertándolas si hay emergencias.</td>
+                            <td>Contribuye activamente a la reducción de emisiones de CO2 mediante IA.</td>
                         </tr>
                         <tr>
-                            <td><strong>BT Group</strong></td>
-                            <td>Transformación Digital</td>
-                            <td>Cambiar la forma en que trabaja toda la empresa usando IA.</td>
-                            <td>Ahorro anual: <strong>£580M</strong>. Acumuló £1,500M en dos años.</td>
+                            <td><strong>Concept T (AI-Phone)</strong></td>
+                            <td>Proyecto que elimina las aplicaciones tradicionales de los celulares. En su lugar, el celular está impulsado enteramente por Inteligencia Artificial generativa que ejecuta comandos por voz.</td>
+                            <td>Posicionamiento temprano para el hardware impulsado por IA de próxima generación.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- Vodafone -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="4" class="company-name">Vodafone</td>
+                            <td><strong>SuperAgent & TOBi IA</strong></td>
+                            <td>Usa Inteligencia Artificial Generativa como "copiloto" para los trabajadores de atención al cliente, leyendo historiales y sugiriendo cómo resolver quejas rápido para acortar la llamada.</td>
+                            <td>Meta de ahorrar <strong>€1,100 millones anuales</strong> y automatizar ~11,000 puestos con IA.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Massive MIMO IA</strong></td>
+                            <td>Aplica IA (Aprendizaje Automático) en las enormes antenas 5G, prediciendo caídas de uso y poniéndolas en suspensión para no malgastar energía.</td>
+                            <td>Ahorros comprobados del 15% en el OPEX energético gracias a la IA.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ciberseguridad IA Pymes</strong></td>
+                            <td>Servicios gestionados donde la Inteligencia Artificial escanea constantemente las redes de las Pymes, deteniendo virus y ciberataques de manera automatizada.</td>
+                            <td>Atrae contratos B2B clave impulsados por IA y su alianza de <strong>$1,500M</strong> con Microsoft.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>VOXI GenAI Chatbot</strong></td>
+                            <td>Un asistente basado en Modelos de Inteligencia Artificial entrenado y diseñado específicamente con un tono conversacional juvenil para atender y retener al segmento de mercado joven.</td>
+                            <td>Aumento de engagement y satisfacción en segmentos jóvenes mediado por IA.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- Orange -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="4" class="company-name">Orange</td>
+                            <td><strong>Automatización RPA (IA)</strong></td>
+                            <td>Emplea robots de software impulsados por IA para automatizar cientos de procesos repetitivos, como leer y aprobar contratos contables y técnicos sin intervención humana.</td>
+                            <td>Ahorro de <strong>500,000 horas de trabajo</strong> anuales apoyado en IA. Meta de €600M.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mantenimiento Submarino IA</strong></td>
+                            <td>Implementa Redes Neuronales de IA (Deep Learning) que detectan micro-degradaciones en cables de internet submarinos, prediciendo roturas para mandar el barco antes del colapso.</td>
+                            <td>La IA asegura el Uptime más alto para conexiones críticas continentales.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Redes Nativas Green AI</strong></td>
+                            <td>Inteligencia Artificial diseñada exclusivamente para balancear el tráfico de los centros de datos, moviendo la carga de procesamiento hacia donde hay más energía renovable disponible.</td>
+                            <td>Alcanzó metas corporativas de neutralidad de carbono gestionadas por IA.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Live Intelligence IA</strong></td>
+                            <td>Algoritmos de IA Generativa (GenAI) operando sobre la latencia ultrabaja del 5G para realizar traducciones, resúmenes e interacciones hiper-rápidas durante videollamadas.</td>
+                            <td>Añade valor premium directo de Inteligencia Artificial al usuario de 5G.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- Telefónica -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="4" class="company-name">Telefónica</td>
+                            <td><strong>Compresión Quantica IA</strong></td>
+                            <td>Utiliza algoritmos de Inteligencia Artificial para reducir drásticamente el peso del código de los modelos de IA, sin perder precisión ni inteligencia.</td>
+                            <td>Ahorro del <strong>75% de energía</strong> en operaciones de IA, optimizando CAPEX/OPEX.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kernel 2.0 (Redes Autónomas)</strong></td>
+                            <td>La IA actúa como el cerebro central; ingiere registros técnicos, imágenes y alarmas para que la red identifique y arregle sus propios problemas de tráfico (Zero-Touch).</td>
+                            <td>La IA es pilar central del plan corporativo Transform & Grow 2026-2030.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IA en Voz Empresarial</strong></td>
+                            <td>La Inteligencia Artificial analiza la voz en tiempo real sobre líneas telefónicas B2B, realizando transcripciones perfectas, sacando notas y resumiendo acuerdos ejecutivos automáticamente.</td>
+                            <td>Moderniza las llamadas convencionales B2B dotándolas de datos accionables de IA.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Telefónica Tech AI Solutions</strong></td>
+                            <td>El brazo tecnológico usa modelos de Inteligencia Artificial para empaquetar servicios de consultoría, ciberseguridad y nube que luego venden a empresas en alianza con Microsoft y AWS.</td>
+                            <td>La venta de servicios de IA mantiene la división en crecimiento de doble dígito.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- BT Group -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="4" class="company-name">BT Group</td>
+                            <td><strong>Openreach Scheduling IA</strong></td>
+                            <td>Usa algoritmos predictivos de Inteligencia Artificial que planifican las rutas y organizan las herramientas de los miles de técnicos que instalan y reparan internet.</td>
+                            <td>La IA genera <strong>£580 millones en ahorros anuales</strong> y mejoró tiempos de reparación.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GenAI en Service Now</strong></td>
+                            <td>Inteligencia Artificial Generativa que lee al instante las páginas de historiales y quejas de un cliente, presentándole al agente telefónico un resumen clave en segundos.</td>
+                            <td>La IA reduce el <strong>55% del tiempo</strong> necesario para resolver casos manuales.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gestión Tráfico IA</strong></td>
+                            <td>Modelos de IA de predicción que estabilizan la latencia anticipándose a picos de consumo masivo (ej. streaming de deportes), evitando que millones de hogares pierdan velocidad.</td>
+                            <td>Elevó el índice de satisfacción al cliente (NPS) a récords históricos gracias a la IA.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aimee (Asistente EE)</strong></td>
+                            <td>Chatbot cognitivo impulsado por IA orientado a la filial "EE" que procesa y resuelve quejas, cambios de plan y dudas de clientes directamente desde las plataformas de soporte.</td>
+                            <td>La IA absorbe cerca de 60,000 interacciones por semana.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- Section 4: África -->
-        <section id="africa" class="reveal">
-            <h2>4. Líderes Africanos: Fintech y Resiliencia</h2>
-            <p>El enfoque africano busca robustecer la inclusión financiera y proteger las redes contra cortes eléctricos o fraudes, más que recortar personal.</p>
+        <!-- Section 3: África -->
+        <section id="africa" class="reveal bg-blue">
+            <h2>Líderes Africanos: Fintech y Resiliencia Geográfica</h2>
+            <p>La IA en África se centra en potenciar las plataformas de dinero móvil, cerrar la brecha digital y proteger infraestructuras críticas ante condiciones adversas.</p>
             
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Empresa</th>
-                            <th>Proyecto Destacado</th>
+                            <th>Proyecto Implementado</th>
                             <th>¿Qué hace en la práctica?</th>
-                            <th>Impacto / Resultado</th>
+                            <th>Impacto (US$) / Resultado</th>
                         </tr>
                     </thead>
+                    <!-- MTN Group -->
                     <tbody>
                         <tr>
-                            <td><strong>MTN Group</strong></td>
-                            <td>Centro de datos IA</td>
-                            <td>Edificios blindados llenos de computadoras para que África tenga su propia IA.</td>
-                            <td>Inversión: <strong>$240M</strong>. Ahorro acumulado: $400M.</td>
+                            <td rowspan="4" class="company-name">MTN Group</td>
+                            <td><strong>Ecosistema MoMo y Centros IA</strong></td>
+                            <td>Usa Inteligencia Artificial para perfilar el historial móvil y el pago de recargas de la gente, ofreciéndoles préstamos de dinero directamente a su celular, aunque no tengan banco.</td>
+                            <td>El dinero móvil Fintech ya procesa $500,000M. MTN invierte <strong>$240M</strong> en centros IA.</td>
                         </tr>
                         <tr>
-                            <td><strong>Vodacom</strong></td>
-                            <td>M-Pesa 2.0 (Google)</td>
-                            <td>Un cajero automático virtual en tu celular que nunca se cae.</td>
-                            <td>Inversión: <strong>$1,000M</strong>. Dinero móvil procesó $525,600M.</td>
+                            <td><strong>IA en Energía Celular</strong></td>
+                            <td>Emplea algoritmos predictivos de Inteligencia Artificial que prevén cuándo habrá apagones de luz para activar de forma inteligente las baterías de respaldo en las torres de red.</td>
+                            <td>La IA soporta un ahorro acumulado de <strong>$400 millones</strong> en eficiencia.</td>
                         </tr>
                         <tr>
-                            <td><strong>Orange MEA</strong></td>
-                            <td>IA lenguas africanas</td>
-                            <td>Enseñar a computadoras a entender dialectos locales para accesibilidad.</td>
-                            <td>Ingresos divisionales: <strong>~$6,800M</strong>.</td>
+                            <td><strong>Agentes de Retención IA</strong></td>
+                            <td>Inteligencia Artificial analítica que evalúa patrones de quejas para detectar qué suscriptor está pensando en abandonar la red, enviándole descuentos preventivos.</td>
+                            <td>Estabiliza los ingresos recurrentes disminuyendo el Churn (fugas) mediante IA.</td>
                         </tr>
                         <tr>
-                            <td><strong>Airtel Africa</strong></td>
-                            <td>Alerta Fraude SMS</td>
-                            <td>Un perro guardián que lee mensajes y bloquea estafas al instante.</td>
-                            <td>EBITDA creció <strong>35.9%</strong>. Primer servicio en África.</td>
+                            <td><strong>Sensores de Fibra IA</strong></td>
+                            <td>Algoritmos de IA que "sienten" las vibraciones del suelo a través del cable de fibra óptica para detectar máquinas de construcción cercanas y alertar antes de que rompan el cable.</td>
+                            <td>La IA previene apagones masivos de red por excavaciones.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- Vodacom -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" class="company-name">Vodacom</td>
+                            <td><strong>M-Pesa Fintech IA</strong></td>
+                            <td>Incorpora Inteligencia Artificial Generativa (Gemini, Veo) a su inmensa red de pagos móviles para detectar fraudes y entender comportamientos económicos de los usuarios.</td>
+                            <td>Inversión en IA de <strong>$1,000 millones</strong>. Ecosistema procesó $525,600M.</td>
                         </tr>
                         <tr>
-                            <td><strong>Safaricom</strong></td>
-                            <td>Zuri Bot (AWS)</td>
-                            <td>Un detective virtual que atrapa ladrones digitales de identidades.</td>
-                            <td>Inversión IA: <strong>$500M</strong>. 89% de precisión anti-ingeniería social.</td>
+                            <td><strong>Océano de Datos IA</strong></td>
+                            <td>Une los datos de llamadas y pagos en una súper base de datos donde la Inteligencia Artificial analiza y cruza todo para ofrecer paquetes financieros hiper-personalizados.</td>
+                            <td>La IA optimiza radicalmente las ventas cruzadas del grupo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sinergia Satelital-IA</strong></td>
+                            <td>La Inteligencia Artificial decide en milisegundos si enrutar una llamada por las antenas terrestres o enviarla al espacio a través de satélites para no perder conexión en zonas rurales.</td>
+                            <td>La IA democratiza el acceso a internet en geografías complejas.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- Orange MEA -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" class="company-name">Orange MEA</td>
+                            <td><strong>IA Lenguas Africanas</strong></td>
+                            <td>Entrena Modelos de Inteligencia Artificial especializados en reconocer la voz y dialectos locales africanos para que poblaciones rurales interactúen con la tecnología hablando.</td>
+                            <td>Creación de la Alianza G6 de IA. Sólidos ingresos de ~$6,800M.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Redes Solares IA</strong></td>
+                            <td>Inteligencia Artificial que revisa pronósticos meteorológicos en la nube y decide cuándo apagar antenas o usar el sol del día, evitando el gasto de mandar camiones de diésel.</td>
+                            <td>La IA logra una reducción masiva de la huella de carbono y el OPEX logístico.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ciberseguridad Resiliente IA</strong></td>
+                            <td>Protege las infraestructuras a lo largo del continente africano usando redes neuronales de Inteligencia Artificial que detectan e interceptan ciberataques en tiempo real.</td>
+                            <td>La IA mantiene la estabilidad técnica del ecosistema Orange Money.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- Airtel Africa -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="4" class="company-name">Airtel Africa</td>
+                            <td><strong>Alerta Fraude SMS (IA)</strong></td>
+                            <td>Un sistema de Inteligencia Artificial (Machine Learning) que "lee" los patrones con los que se envían mensajes masivos engañosos, bloqueando automáticamente los intentos de estafa.</td>
+                            <td>La IA protege la red. Impulsó el crecimiento del EBITDA en <strong>35.9%</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Geolocalización IA</strong></td>
+                            <td>Usa Inteligencia Artificial para visualizar datos en mapas de altísima precisión, detectando exactamente en qué calles falla más la red para enviar equipos de refuerzo.</td>
+                            <td>La IA generó un crecimiento de ingresos interanual de más del 31%.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Optimización Energía IA</strong></td>
+                            <td>Inteligencia Artificial predictiva enfocada exclusivamente en calcular el nivel exacto de combustible y diésel que requerirán los generadores de las antenas, evitando el desperdicio.</td>
+                            <td>Impacto directo de la IA sobre la rentabilidad neta.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Centros de Datos Nxtra</strong></td>
+                            <td>Preparación de infraestructura masiva nativa para que los sistemas de Inteligencia Artificial escalen y ofrezcan servicios en la nube a empresas locales africanas.</td>
+                            <td>Asegura bases sólidas para el futuro crecimiento tecnológico B2B con IA.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- Safaricom -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" class="company-name">Safaricom</td>
+                            <td><strong>Zuri Bot e Idea-to-Cash (IA)</strong></td>
+                            <td>Emplea una Inteligencia Artificial Generativa que atiende clientes todo el día, y usa modelos de lenguaje para transformar ideas en servicios financieros rápido.</td>
+                            <td>Fondo comprometido de <strong>$500 millones</strong> en infraestructura de IA.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Antifraude IA con Grafos</strong></td>
+                            <td>Despliega Inteligencia Artificial avanzada (Redes Neuronales de Grafos) que analiza con quién hablas para detectar redes de extorsionadores y bloquearlos.</td>
+                            <td>La IA logra un espectacular <strong>89% de precisión</strong> en detener estafas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>M-Pesa Fintech 2.0 Core</strong></td>
+                            <td>Rediseño del núcleo del dinero móvil liderado por algoritmos de Inteligencia Artificial escalables que permite procesar hasta el triple de transacciones bancarias simultáneamente.</td>
+                            <td>La IA garantiza que el sistema financiero masivo no se colapse.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- Section 5: América -->
-        <section id="america" class="reveal">
-            <h2>5. Líderes Americanos: Escala y Automatización</h2>
-            <p>EE. UU. domina el volumen financiero con inversiones colosales y profundas reestructuraciones laborales ligadas a la automatización.</p>
+        <!-- Section 4: America -->
+        <section id="america" class="reveal bg-gray">
+            <h2>Líderes Americanos: Escala Masiva y Automatización Total</h2>
+            <p>Los operadores en el continente americano emplean la IA de forma intensiva para reducir millones de horas laborales, mitigar ciberamenazas y orquestar infraestructuras gigantescas.</p>
             
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Empresa</th>
-                            <th>Proyecto Destacado</th>
+                            <th>Proyecto Implementado</th>
                             <th>¿Qué hace en la práctica?</th>
-                            <th>Impacto / Resultado</th>
+                            <th>Impacto (US$) / Resultado</th>
                         </tr>
                     </thead>
+                    <!-- Verizon -->
                     <tbody>
                         <tr>
-                            <td><strong>Verizon</strong></td>
-                            <td>Atención IA Integral</td>
-                            <td>Un súper agente telefónico artificial que nunca se cansa.</td>
-                            <td>Meta de ahorro: <strong>$5,000-$9,000M</strong>.</td>
+                            <td rowspan="3" class="company-name">Verizon</td>
+                            <td><strong>Transformación IA en Atención</strong></td>
+                            <td>Usa Inteligencia Artificial de Google Cloud para automatizar las tareas burocráticas mientras los agentes están en la llamada, evitando que hagan clicks manuales.</td>
+                            <td>Soporta la meta de IA de recortar entre <strong>$5,000M y $9,000M</strong> en costos para 2026.</td>
                         </tr>
                         <tr>
-                            <td><strong>AT&T</strong></td>
-                            <td>ActiveArmor</td>
-                            <td>Un escudo mágico que bloquea miles de millones de llamadas de extorsión.</td>
-                            <td>Ahorro: <strong>$1,000M</strong> (2025). Bloquea 2,500M de robollamadas al mes.</td>
+                            <td><strong>Red Inteligente de Borde (Edge AI)</strong></td>
+                            <td>Algoritmos de Inteligencia Artificial dividen "carriles" exclusivos de la red 5G, asegurando que si un hospital o fábrica necesita conectividad perfecta, la red se reconfigure sola.</td>
+                            <td>Sinergia estratégica de IA corporativa valorizada en miles de millones.</td>
                         </tr>
                         <tr>
-                            <td><strong>T-Mobile US</strong></td>
-                            <td>IntentCX (OpenAI)</td>
-                            <td>IA que "adivina" por qué llamas antes de que hables.</td>
-                            <td>Pioneros en decisiones basadas en intención.</td>
+                            <td><strong>Optimizador C-Band IA</strong></td>
+                            <td>La Inteligencia Artificial ajusta constantemente la potencia de las ondas y las antenas de alta velocidad dependiendo si la gente está en el centro o en su casa.</td>
+                            <td>Mejora directa impulsada por IA de la calidad de señal 5G para los usuarios finales.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- AT&T -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="4" class="company-name">AT&T</td>
+                            <td><strong>ActiveArmor (Escudo Antifraude)</strong></td>
+                            <td>Modelos de Inteligencia Artificial corren dentro de la red celular, reconociendo el comportamiento de llamadas de extorsión y bloqueándolas antes de que el usuario conteste.</td>
+                            <td>La IA elimina <strong>2,500 millones de robollamadas</strong> fraudulentas mensualmente.</td>
                         </tr>
                         <tr>
-                            <td><strong>Comcast</strong></td>
-                            <td>Virtual Technician</td>
-                            <td>Un técnico invisible que arregla fallas de internet desde lejos.</td>
-                            <td>Logra <strong>70%</strong> de resolución técnica sin humanos.</td>
+                            <td><strong>Ask AT&T (IA Interna)</strong></td>
+                            <td>Un modelo de Inteligencia Artificial Generativa privado donde la IA lee datos y sugiere códigos o resúmenes legales sin que información confidencial de la empresa se escape a internet.</td>
+                            <td>La IA generó comprobablemente <strong>$1,000 millones de ahorro en 2025</strong>.</td>
                         </tr>
                         <tr>
-                            <td><strong>América Móvil</strong></td>
-                            <td>Monitoreo y Agentes IA</td>
-                            <td>Robots que contestan dudas y vigilan que la señal no se caiga.</td>
-                            <td>Compensó parte del aumento de <strong>$46,400M MXN</strong> en OPEX.</td>
+                            <td><strong>Mantenimiento Predictivo IA</strong></td>
+                            <td>Software de Inteligencia Artificial que analiza información de módems y antenas y avisa al equipo dónde ocurrirá un apagón para arreglarlo antes de que suceda.</td>
+                            <td>La IA optimiza más del 90% de la red reduciendo costos operativos catastróficos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flotas Logísticas IA</strong></td>
+                            <td>Algoritmos de IA (Machine Learning) que trazan logísticamente las rutas diarias de miles de camiones de servicio para que usen menos combustible y cubran más reparaciones.</td>
+                            <td>Impacto masivo de la IA en la disminución de la huella de carbono y OPEX logístico.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- T-Mobile -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" class="company-name">T-Mobile US</td>
+                            <td><strong>IntentCX (OpenAI)</strong></td>
+                            <td>Implementa modelos profundos de Inteligencia Artificial que escuchan en tiempo real al cliente y adivinan por su tono de voz cuál es el problema que quieren resolver.</td>
+                            <td>La IA disminuye drásticamente las más de 3 millones de quejas telefónicas semanales.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plataforma AI-RAN</strong></td>
+                            <td>Coloca chips de Inteligencia Artificial directamente en las bases de las antenas, permitiendo que la red piense sola, se ajuste y asigne internet rápido a videojuegos o realidad aumentada.</td>
+                            <td>La IA los consolida como líderes de rendimiento en velocidad 5G.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Agentes IA Multilingües</strong></td>
+                            <td>Utiliza Inteligencia Artificial para atender al usuario en su idioma materno, guiándolo a través de las renovaciones de planes sin fricciones de agentes humanos.</td>
+                            <td>La IA consolida el crecimiento de suscriptores en el mercado hipercompetitivo.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- Comcast -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" class="company-name">Comcast</td>
+                            <td><strong>Virtual Technician IA</strong></td>
+                            <td>Implementa una Inteligencia Artificial capaz de conectarse a los módems residenciales, diagnosticar el problema y mandar señales de "autocuración" o reinicio al equipo.</td>
+                            <td>La IA resuelve el <strong>70% de los incidentes técnicos</strong> evitando visitas físicas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Proyectos Falcon & Janus (IA)</strong></td>
+                            <td>La Inteligencia Artificial usa análisis predictivo profundo para "adivinar" 48 horas antes si se saturará el internet en un barrio, movilizando el ancho de banda.</td>
+                            <td>La eficiencia de la IA permitió devolver <strong>$12,000M</strong> a accionistas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Publicidad Híper-Personalizada IA</strong></td>
+                            <td>Integra modelos de Inteligencia Artificial de comportamiento que sugieren automáticamente publicidad e información interactiva a los usuarios de TV y Streaming, acorde a sus gustos.</td>
+                            <td>Rentabiliza servicios multimedia usando la IA en sinergia con otras filiales.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- America Movil -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="4" class="company-name">América Móvil</td>
+                            <td><strong>Agentes IA en Call Centers</strong></td>
+                            <td>Despliega bots de Inteligencia Artificial que resuelven mecánicamente las tareas rutinarias como saldo, renovaciones y diagnósticos en Telcel y Claro.</td>
+                            <td>La IA ayudó a contrarrestar el aumento operativo de Ps.46,400 millones.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IA en Monitoreo y Seguridad</strong></td>
+                            <td>Aplica Inteligencia Artificial que supervisa continuamente las centrales físicas y digitales, alertando sobre anomalías o caídas de voltaje de manera automatizada.</td>
+                            <td>Analistas estiman que la IA podría reducir entre 30% y 40% del OPEX técnico.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Despliegue Red Georreferenciado IA</strong></td>
+                            <td>Sistemas analíticos de IA espacial que estudian dónde viven las personas que más necesitan 5G o fibra y calculan la ruta exacta para que invertir en esa infraestructura sea altamente rentable.</td>
+                            <td>La IA maximiza el Retorno de Inversión (CAPEX) en mercados financieramente complejos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Escudo Anti-Fraude IA</strong></td>
+                            <td>Inteligencia artificial predictiva instalada para detectar el "SIM Swapping", bloqueando estafadores antes de que logren robar los códigos bancarios de un usuario.</td>
+                            <td>La IA proporciona un valor crítico de seguridad en el mercado de LATAM.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- Section 6: Oceanía -->
-        <section id="oceania" class="reveal">
-            <h2>6. Líderes de Oceanía: Satelital y Ciberseguridad</h2>
-            <p>En una geografía vasta, la IA se enfoca en mantener redes regionales y fusionarse con la nueva conectividad satelital.</p>
+        <!-- Section 5: Oceania -->
+        <section id="oceania" class="reveal bg-blue">
+            <h2>Líderes de Oceanía: IA Predictiva y Convergencia Satelital</h2>
+            <p>Ante territorios inmensos y densidades poblacionales complejas, Oceanía utiliza la IA como un puente indispensable entre las redes terrestres celulares y las nuevas constelaciones de satélites.</p>
             
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Empresa</th>
-                            <th>Proyecto Destacado</th>
+                            <th>Proyecto Implementado</th>
                             <th>¿Qué hace en la práctica?</th>
-                            <th>Impacto / Resultado</th>
+                            <th>Impacto (US$/AUD/NZD) / Resultado</th>
                         </tr>
                     </thead>
+                    <!-- Telstra -->
                     <tbody>
                         <tr>
-                            <td><strong>Telstra</strong></td>
-                            <td>AskTelstra</td>
-                            <td>Un soplón inteligente que le da al empleado la respuesta a tu problema.</td>
-                            <td>Ahorro laboral: <strong>AUD $181M</strong>. 90% más efectividad.</td>
+                            <td rowspan="4" class="company-name">Telstra</td>
+                            <td><strong>AskTelstra & Resúmenes IA</strong></td>
+                            <td>Emplea Inteligencia Artificial (Azure OpenAI) que lee al instante los enredados historiales de quejas y le dictamina al operador humano un resumen de una línea para resolver la llamada.</td>
+                            <td>Ahorro laboral IA directo de <strong>AUD $181 millones</strong> e incremento de 90% de eficacia.</td>
                         </tr>
                         <tr>
-                            <td><strong>Optus</strong></td>
-                            <td>AI Concierge</td>
-                            <td>Filtro automático para que los humanos atiendan solo lo difícil.</td>
-                            <td>Contrato B2B: <strong>US$1,600M</strong>. Reduce 15% las consultas a humanos.</td>
+                            <td><strong>Scam Indicator IA</strong></td>
+                            <td>Algoritmos predictivos de Inteligencia Artificial que vigilan las señales celulares en busca de comportamiento fraudulento para atrapar y bloquear llamadas de estafadores masivas.</td>
+                            <td>La IA ahorra cientos de millones evitando que los clientes sean robados.</td>
                         </tr>
                         <tr>
-                            <td><strong>TPG Telecom</strong></td>
-                            <td>Analítica Ericsson</td>
-                            <td>Radar sensible que detecta fallos antes de que te des cuenta.</td>
-                            <td>Ahorro red: <strong>US$375-440M</strong> (indirecto por red compartida).</td>
+                            <td><strong>Joint Venture IA (Accenture)</strong></td>
+                            <td>Alianza corporativa donde la Inteligencia Artificial acelera desarrollos internos; logrando avanzar en 2 años lo que habría tomado 5 años hacer con equipos humanos.</td>
+                            <td>La reestructura impulsada por IA dejó <strong>AUD $1,200 millones</strong> en utilidades.</td>
                         </tr>
                         <tr>
-                            <td><strong>Spark NZ</strong></td>
-                            <td>Marketing "Brain"</td>
-                            <td>Experto en publicidad que manda promociones altamente efectivas.</td>
-                            <td>Aumento de <strong>20x</strong> en rendimiento de campañas.</td>
+                            <td><strong>Red Autoconfigurable IA</strong></td>
+                            <td>Usa Inteligencia Artificial de lazo cerrado (Zero-Touch) para que las antenas detecten congestiones y se arreglen solas sin intervención humana.</td>
+                            <td>La IA redujo el volumen de quejas de seguimiento de servicio en un 20%.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- Optus -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="4" class="company-name">Optus</td>
+                            <td><strong>AI Concierge (GenAI)</strong></td>
+                            <td>Utiliza un conserje de Inteligencia Artificial que diagnostica si un problema es grave o sencillo; si es sencillo lo resuelve él mismo en texto o voz, si es grave, lo redirige a un humano.</td>
+                            <td>La IA desapareció un <strong>15% de las interacciones humanas</strong>, disminuyendo costos.</td>
                         </tr>
                         <tr>
-                            <td><strong>One NZ</strong></td>
-                            <td>Transición Satelital</td>
-                            <td>Conecta el celular a satélites (Starlink) en medio de la nada.</td>
-                            <td>Meta ROI: <strong>5x</strong>. +30 agentes IA en operación.</td>
+                            <td><strong>Optimización IA Energética</strong></td>
+                            <td>Aplica modelos de IA predictivos para "dormir" temporalmente partes de la infraestructura 5G cuando casi nadie la usa, para no gastar enormes cantidades de luz.</td>
+                            <td>La Inteligencia Artificial reduce uno de los gastos corrientes más altos en infraestructura.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Planificación Red IA</strong></td>
+                            <td>Usa Inteligencia Artificial para crear escenarios matemáticos del terreno que determinan automáticamente en qué lugar instalar una antena celular generará mayor cobertura.</td>
+                            <td>La IA desbloqueó acuerdos empresariales regionales gigantescos por US$1,600M.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Motor de Insights IA</strong></td>
+                            <td>Inteligencia Artificial predictiva enfocada en vigilar los consumos. Sugiere mejoras proactivas como paquetes de roaming antes de que el usuario lo solicite.</td>
+                            <td>Mejora directa de fidelización de clientes e incremento del ARPU impulsada por IA.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- TPG Telecom -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" class="company-name">TPG Telecom</td>
+                            <td><strong>Analítica Experta IA</strong></td>
+                            <td>Implementa Machine Learning (IA) basado en la nube que escanea el tráfico de datos, detectando comportamientos extraños para alertar de que un nodo se va a colapsar.</td>
+                            <td>Brinda la infraestructura de análisis de IA más robusta de Australia.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Recomendaciones y NPS IA</strong></td>
+                            <td>Motor analítico de Inteligencia Artificial que revisa encuestas y registros de conexión en milisegundos, aconsejando automáticamente a los directivos cómo mejorar el servicio.</td>
+                            <td>La IA maximizó el uso del acuerdo de red compartida de hasta US$440M.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Espectro 5G Dinámico IA</strong></td>
+                            <td>Sistema de Inteligencia Artificial en tiempo real para estadios; la IA empuja la potencia temporalmente al estadio para que miles de personas puedan subir videos al mismo tiempo.</td>
+                            <td>La IA evita saturaciones garantizando experiencias premium a los suscriptores.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- Spark NZ -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="4" class="company-name">Spark NZ</td>
+                            <td><strong>Motor de Marketing IA</strong></td>
+                            <td>Usa algoritmos de Inteligencia Artificial (Machine Learning) que aprenden los hábitos de compra de los usuarios para crear campañas de publicidad súper específicas y tentadoras.</td>
+                            <td>Las campañas con IA rinden <strong>20 veces más</strong> que las tradicionales.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Copiloto IA en Call Centers</strong></td>
+                            <td>Herramienta basada en Inteligencia Artificial (Copilot) que busca instantáneamente entre manuales de la empresa para darle respuestas al operador mientras charla con el cliente.</td>
+                            <td>La IA apunta a ahorrar <strong>NZ$50 millones anuales</strong> y bajar estrés laboral.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cloud Security IA</strong></td>
+                            <td>El sistema usa Inteligencia Artificial para monitorear ráfagas de datos ilegales que intentan tumbar el internet, y usa escudos automáticos para absorber ese tráfico malicioso.</td>
+                            <td>La IA asegura el servicio nacional ininterrumpido en ecosistemas críticos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gemelos Digitales 5G IA</strong></td>
+                            <td>Programas de simulación hiperrealistas impulsados por Inteligencia Artificial que prueban si la señal de una futura antena pasará bien antes de mandarla a construir físicamente.</td>
+                            <td>La IA minimiza errores y reduce los altísimos costos de instalación civil.</td>
+                        </tr>
+                    </tbody>
+
+                    <!-- One NZ -->
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" class="company-name">One NZ</td>
+                            <td><strong>Transición Satelital IA</strong></td>
+                            <td>El software de Inteligencia Artificial rastrea la señal. Cuando te quedas sin servicio terrestre, la IA redirige inteligentemente tu celular para que hables usando satélites en el espacio.</td>
+                            <td>La IA logró enviar <strong>7 millones de mensajes SOS</strong> desde zonas aisladas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>30+ Agentes de Software IA</strong></td>
+                            <td>Robots de software (Inteligencia Artificial Agéntica) que "piensan" solos para activar o modificar contratos complejos de empresas sin la intervención burocrática de humanos.</td>
+                            <td>Apuesta a ganar <strong>US$5 de rentabilidad por cada US$1</strong> destinado a IA.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aprovisionamiento RPA IA</strong></td>
+                            <td>Integración de ecosistemas de Inteligencia Artificial para la lectura de documentos masivos y conciliaciones automatizadas que el ojo humano no puede procesar con rapidez.</td>
+                            <td>La IA reduce los márgenes de error y los costos de back-office empresariales.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- Section 7: Estrategia AMX -->
-        <section id="estrategia" class="reveal">
-            <h2>7. Análisis Estratégico: América Móvil</h2>
+        <!-- Section 6: Pilares Estratégicos -->
+        <section id="pilares" class="reveal bg-gray">
+            <h2>Los 5 pilares básicos para mantener competitividad en la industria de las telecomunicaciones</h2>
+            <p>Para asegurar una ventaja competitiva de forma escalable, la adopción de Inteligencia Artificial debe asentarse sobre estas cinco capacidades fundamentales apoyadas en plataformas tecnológicas maduras (SaaS/Cloud):</p>
             
-            <h3>7.1 El Contexto Desafiante (México y LATAM)</h3>
-            <p>Con +410 millones de usuarios, América Móvil enfrenta dinámicas muy distintas a Europa. Replicar inversiones masivas en servidores (como Deutsche Telekom) sería ineficiente. Los principales retos son:</p>
-            <div class="grid-cards" style="margin-bottom: 4rem;">
-                <div class="card">
-                    <span class="card-number">01</span>
-                    <h4>Fraude y Extorsión</h4>
-                    <p>México perdió US$1,067 millones por fraudes digitales en 2025.</p>
-                </div>
-                <div class="card">
-                    <span class="card-number">02</span>
-                    <h4>Baja Bancarización</h4>
-                    <p>22.5 millones de adultos en México no tienen cuenta bancaria.</p>
-                </div>
-                <div class="card">
-                    <span class="card-number">03</span>
-                    <h4>Sensibilidad Laboral</h4>
-                    <p>El pasivo pensionario de Telmex es de Ps.37,176M (5x su EBITDA trimestral), haciendo riesgosos los recortes masivos.</p>
-                </div>
-            </div>
-
-            <h3>7.2 Los 5 Pilares Fundamentales de Implementación</h3>
-            <p>Para alcanzar un nivel altamente competitivo, la estrategia requiere asentar estos 5 pilares operativos a través de plataformas líderes (SaaS):</p>
-            
-            <div class="grid-cards">
-                <!-- Pilar 1 -->
-                <div class="pillar-card">
-                    <h4><span class="pillar-num">1</span> Atención Automatizada</h4>
-                    <p class="pillar-desc">Resolver recargas y fallas directamente en la app donde vive el cliente latinoamericano: WhatsApp. Esto evita que el usuario tenga que descargar apps pesadas, reduce el tiempo de espera a cero y descarga de presión a los call centers humanos, permitiéndoles enfocarse en ventas o retención cruzada.</p>
-                    <div class="badge">Sinergia: Google Dialogflow / Azure Bot + Zendesk</div>
-                </div>
-                
-                <!-- Pilar 2 -->
-                <div class="pillar-card">
-                    <h4><span class="pillar-num">2</span> Mantenimiento y Energía</h4>
-                    <p class="pillar-desc">La red "siente" su propio estado mediante sensores, programando mantenimientos antes de que el usuario reporte la caída. Además, optimiza el encendido de antenas (gestión inteligente del tráfico), lo que ahorra luz y diésel, reduciendo la huella de carbono y el OPEX drásticamente.</p>
-                    <div class="badge">Sinergia: Nokia, Ericsson, Huawei + AWS</div>
-                </div>
-
-                <!-- Pilar 3 -->
-                <div class="pillar-card">
-                    <h4><span class="pillar-num">3</span> Ciberseguridad Activa</h4>
-                    <p class="pillar-desc">Escudo en tiempo real que protege la facturación. Al analizar metadatos y patrones de comportamiento, el sistema detecta y bloquea llamadas de extorsión y SIM Swapping al instante, protegiendo la identidad bancaria de los usuarios y blindando la reputación de la marca.</p>
-                    <div class="badge">Sinergia: Feedzai / IBM Watson</div>
-                </div>
-
-                <!-- Pilar 4 -->
-                <div class="pillar-card">
-                    <h4><span class="pillar-num">4</span> Auditoría Inteligente</h4>
-                    <p class="pillar-desc">Convertir a texto el 100% de las conversaciones del call center. Esto permite pasar de escuchar muestras aleatorias (1%) a analizar la totalidad de las interacciones, detectando malas prácticas, quejas regionales en tiempo real y oportunidades exactas de capacitación para los agentes.</p>
-                    <div class="badge">Sinergia: Azure Voice / Verint</div>
-                </div>
-
-                <!-- Pilar 5 -->
-                <div class="pillar-card">
-                    <h4><span class="pillar-num">5</span> Predicción de Churn</h4>
-                    <p class="pillar-desc">Al cruzar datos de llamadas caídas, quejas en soporte y consumo de datos, el algoritmo predice quién está a punto de cancelar o irse con la competencia (hasta 90 días antes). Esto activa campañas de retención automáticas (promociones o bonos) justo en el momento de mayor vulnerabilidad del cliente.</p>
-                    <div class="badge">Sinergia: Salesforce Einstein + Google Cloud</div>
-                </div>
-            </div>
-
-            <h3 style="margin-top: 4rem;">7.3 Estimaciones Financieras (Benchmark)</h3>
-            <p>Combinando la resiliencia de <strong>Telefónica</strong> (compresión IA para ahorrar energía) y la estrategia fintech de <strong>Vodacom (M-Pesa)</strong>, se proyecta:</p>
-            <ul>
-                <li style="margin-bottom:12px; color:var(--text-main);"><strong>Contención OPEX:</strong> Ahorros proyectados de <strong>US$250 a $500 millones anuales</strong> en un horizonte de 3 a 5 años (Benchmark AT&T).</li>
-                <li style="color:var(--text-main);"><strong>Nuevos Ingresos Fintech:</strong> Claro Pay e Inbursa podrían representar entre el <strong>1% y el 3%</strong> de los ingresos del grupo a mediano plazo.</li>
-            </ul>
-        </section>
-
-        <!-- Section 8: Top 10 -->
-        <section id="top10" class="reveal">
-            <h2>8. Top 10: Proyectos Estratégicos</h2>
-            <p>El plan de acción ejecutivo detallando el enfoque práctico y las alianzas requeridas.</p>
-
             <div class="list-cards">
-                <!-- Card 1 -->
+                <!-- Pilar 1 -->
                 <div class="horizontal-card">
                     <div class="hc-number">01</div>
                     <div class="hc-content">
-                        <h4>Súper-app Financiera</h4>
-                        <p>Permite otorgar micro-préstamos basados en el historial de recargas prepago, abriendo una nueva línea de ingresos en mercados de baja bancarización. Transforma la billetera digital para recibir dinero y préstamos evaluados por IA al instante.</p>
-                        <div class="hc-badge">Sinergia: Claro Pay + Grupo Inbursa (Modelo Vodacom)</div>
+                        <h4>Atención Automatizada y Estabilidad de Sistemas (Zero-Downtime)</h4>
+                        <p>La Inteligencia Artificial se utiliza no solo para atender al cliente vía chatbots empáticos en canales nativos como WhatsApp (resolviendo dudas y recargas sin esperas), sino como un **guardián de la infraestructura**. Modelos de IA monitorean en tiempo real los servidores, bases de datos y pasarelas de pago para predecir saturaciones y evitar de forma proactiva que el sistema se caiga o se "trabe". Apoyarse en la IA para asegurar que el servicio técnico funcione correctamente y no falle es indispensable para que el cliente no se frustre ni se pierda la lealtad.</p>
+                        <div class="hc-badge">Sinergias Clave: Google Cloud (Dialogflow) / Microsoft Azure Bot + IA Monitoreo Nube</div>
                     </div>
                 </div>
 
-                <!-- Card 2 -->
+                <!-- Pilar 2 -->
                 <div class="horizontal-card">
                     <div class="hc-number">02</div>
                     <div class="hc-content">
-                        <h4>Copiloto en WhatsApp</h4>
-                        <p>Un asistente virtual capaz de entender audios, texto informal y modismos locales, resolviendo solicitudes transaccionales (recargas, fallas) al instante para reducir la saturación del call center humano sin dejar a nadie en espera.</p>
-                        <div class="hc-badge">Sinergia: Google Cloud / Azure Bot Service + Zendesk</div>
+                        <h4>Mantenimiento Predictivo y Eficiencia Energética</h4>
+                        <p>Los algoritmos de IA (Machine Learning) ingieren datos de telemetría de cada antena física y módem para detectar vibraciones o fluctuaciones de voltaje irregulares. La Inteligencia Artificial emite alertas para reparar piezas que están a punto de fallar *antes* de que ocurra una caída generalizada del servicio. En paralelo, la IA apaga dinámicamente nodos en horas de poco uso, ahorrando enormes cantidades de diésel y energía eléctrica, cuidando tanto el hardware como el OPEX corporativo.</p>
+                        <div class="hc-badge">Sinergias Clave: Nokia, Ericsson, Huawei (Hardware IA) + Analítica AWS</div>
                     </div>
                 </div>
 
-                <!-- Card 3 -->
+                <!-- Pilar 3 -->
                 <div class="horizontal-card">
                     <div class="hc-number">03</div>
                     <div class="hc-content">
-                        <h4>Bloqueador Nacional Antifraude</h4>
-                        <p>Monitorea metadatos en tiempo real para bloquear llamadas de números reportados por extorsión, previniendo el robo de identidad por SIM Swapping y brindando un escudo de seguridad antes de que la llamada suene.</p>
-                        <div class="hc-badge">Sinergia: Feedzai o IBM Watson (Modelo AT&T)</div>
+                        <h4>Ciberseguridad Activa y Antifraude</h4>
+                        <p>Implementación de Redes Neuronales de IA que escanean metadatos de transacciones y patrones de llamadas a escala nacional. La Inteligencia Artificial detecta comportamientos sospechosos (como el peligroso SIM Swapping y las robollamadas de extorsión), bloqueándolas en milisegundos para proteger el funcionamiento mismo de las carteras digitales, la facturación de la empresa y la identidad financiera del usuario final frente al cibercrimen.</p>
+                        <div class="hc-badge">Sinergias Clave: Feedzai (IA Fraude Telecom) / IBM Watson</div>
                     </div>
                 </div>
 
-                <!-- Card 4 -->
+                <!-- Pilar 4 -->
                 <div class="horizontal-card">
                     <div class="hc-number">04</div>
                     <div class="hc-content">
-                        <h4>Mantenimiento Predictivo</h4>
-                        <p>Analiza las fluctuaciones de señal y factores climáticos para despachar a las cuadrillas técnicas con los repuestos exactos antes del corte total del servicio, reparando desperfectos en los cables antes de que se pierda la señal.</p>
-                        <div class="hc-badge">Sinergia: Nokia, Ericsson, Huawei + analítica AWS</div>
+                        <h4>Auditoría Inteligente y Transcripción</h4>
+                        <p>Se emplean potentes herramientas de Inteligencia Artificial y Procesamiento de Lenguaje Natural que convierten el 100% del audio de los agentes de soporte a texto en tiempo real. Esta IA extrae el contexto, evalúa el tono y detecta áreas de frustración sin requerir que un supervisor humano escuche cintas aleatorias, estandarizando la calidad del servicio a nivel masivo y generando resúmenes perfectos y automatizados de cada interacción.</p>
+                        <div class="hc-badge">Sinergias Clave: Microsoft Azure Voice Analytics / Verint (IA Analítica)</div>
                     </div>
                 </div>
 
-                <!-- Card 5 -->
+                <!-- Pilar 5 -->
                 <div class="horizontal-card">
                     <div class="hc-number">05</div>
                     <div class="hc-content">
-                        <h4>Gestión Energética Celular</h4>
-                        <p>Las antenas entran en modo de suspensión durante la madrugada o se apoyan en paneles solares según pronósticos meteorológicos, optimizando CAPEX/OPEX al ahorrar luz y diésel de forma drástica en zonas rurales.</p>
-                        <div class="hc-badge">Sinergia: Fabricantes de infraestructura (Modelo MTN)</div>
+                        <h4>Predicción de Churn y Ofertas Hiperpersonalizadas</h4>
+                        <p>Modelos de aprendizaje profundo de Inteligencia Artificial cruzan el uso histórico de datos, reportes de sistema caído y quejas de un cliente. Si la IA infiere que el usuario está cotizando a la competencia o está insatisfecho, alerta al sistema comercial automáticamente. La IA permite actuar (hasta con 90 días de anticipación) ofreciendo un descuento, bonificación o refinanciamiento justo antes de que el usuario tome la decisión de cancelar el servicio.</p>
+                        <div class="hc-badge">Sinergias Clave: Salesforce (Einstein AI) / Google Cloud IA</div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Card 6 -->
+        <!-- Section 7: Conclusiones -->
+        <section id="conclusiones" class="reveal bg-blue">
+            <h2>Conclusiones y Oportunidades Sobresalientes para América Móvil</h2>
+            <p>La integración de estos 5 pilares de IA con la escala e infraestructura actual de América Móvil no solo moderniza su matriz tecnológica, sino que representa la ruta de generación de valor más agresiva para LATAM.</p>
+
+            <div class="list-cards">
+                <!-- Beneficios Financieros -->
                 <div class="horizontal-card">
-                    <div class="hc-number">06</div>
                     <div class="hc-content">
-                        <h4>Compresión de IA</h4>
-                        <p>Usa técnicas de poda neuronal para reducir el peso de los modelos en un 95%, logrando operar IA compleja en servidores locales sin incurrir en costos masivos de nube y consumiendo mucho menos electricidad.</p>
-                        <div class="hc-badge">Sinergia: Multiverse Computing (Modelo Telefónica)</div>
+                        <h4>Beneficios Financieros y Ahorros Directos (OPEX) mediante IA</h4>
+                        <p>La adopción de Inteligencia Artificial para dictaminar logísticamente las rutas de mantenimiento y gestionar el estado energético de las antenas disminuye de inmediato el CAPEX de reequipamiento y el uso masivo de gasolina/diésel. Simultáneamente, automatizar la asistencia vía IA (WhatsApp y chatbots avanzados) elimina millones de llamadas ineficientes. Una penetración seria de la IA puede reportar ahorros comprobables de **US$250 a $500 millones anuales**, evitando despidos friccionales masivos al enfocar la IA en el inmenso volumen de consultas transaccionales primarias.</p>
                     </div>
                 </div>
-
-                <!-- Card 7 -->
+                
+                <!-- Nuevos Ingresos Fintech -->
                 <div class="horizontal-card">
-                    <div class="hc-number">07</div>
                     <div class="hc-content">
-                        <h4>Motor Antichurn y Ofertas</h4>
-                        <p>Cruza datos de navegación y quejas para identificar qué cliente de prepago se quedó sin saldo o está cotizando con la competencia, detonando una oferta automática o promoción en tiempo real para retenerlo.</p>
-                        <div class="hc-badge">Sinergia: Salesforce (Einstein AI)</div>
+                        <h4>Oportunidad de Negocio: Expansión Fintech (Claro Pay) IA</h4>
+                        <p>Utilizando Inteligencia Artificial de evaluación y scoring crediticio basada en la frecuencia de las recargas prepago o la temporalidad del pago de la factura celular, América Móvil puede democratizar préstamos e hiper-rápidas líneas de crédito a sectores que los bancos tradicionales rechazan. Este ecosistema **fintech robustecido por IA** representa una vía tangible para elevar los márgenes de ganancia pura (comisiones), proyectando que nuevos servicios financieros aporten porcentajes enteros al ingreso global del grupo a mediano plazo.</p>
                     </div>
                 </div>
 
-                <!-- Card 8 -->
+                <!-- Resiliencia y Reputación -->
                 <div class="horizontal-card">
-                    <div class="hc-number">08</div>
                     <div class="hc-content">
-                        <h4>Automatización Back-Office</h4>
-                        <p>Robots de software (RPA) que sustituyen la captura manual de datos financieros y la conciliación de contratos con proveedores, logrando un 99% de precisión y liberando miles de horas laborales del personal humano.</p>
-                        <div class="hc-badge">Sinergia: Herramientas estándar RPA (Modelo Orange)</div>
+                        <h4>Posicionamiento Superior: Seguridad y Blindaje Antifraude con IA</h4>
+                        <p>La capacidad de la Inteligencia Artificial para detener la clonación de líneas (SIM Swapping), anular robollamadas de extorsión y predecir saturaciones del sistema antes de que el usuario lo note, tiene un efecto profundo sobre la marca. Convierte a la red de América Móvil en la **red más segura, resistente y confiable** de la región. La IA reduce drásticamente las cancelaciones por molestia (Churn) y posiciona a la empresa como protectora activa del patrimonio del ciudadano en LATAM.</p>
                     </div>
                 </div>
 
-                <!-- Card 9 -->
+                <!-- Oportunidades a Futuro -->
                 <div class="horizontal-card">
-                    <div class="hc-number">09</div>
                     <div class="hc-content">
-                        <h4>Productividad Sindical</h4>
-                        <p>Implementación de un asistente amigable que ayuda a los técnicos de base a encontrar soluciones en manuales gigantes en segundos y a redactar reportes desde sus PCs, elevando la eficiencia sin generar fricción laboral.</p>
-                        <div class="hc-badge">Sinergia: Microsoft Azure corporativo interno</div>
+                        <h4>Proyectos Futuros: Soberanía de Nube y Edge AI</h4>
+                        <p>Tras asentar los 5 pilares operativos básicos de IA, el siguiente paso evolutivo es capitalizar el hardware de telecomunicaciones desplegado. Transformando la base de sus antenas 5G en centros de micro-procesamiento **(Edge AI)**, América Móvil se posicionará estratégicamente para rentar esta infraestructura a fábricas y corporativos en el auge del *nearshoring* (México/Brasil), entrando de lleno a competir en el gigantesco mercado B2B de la supercomputación y la Inteligencia Artificial local.</p>
                     </div>
                 </div>
-
-                <!-- Card 10 -->
-                <div class="horizontal-card">
-                    <div class="hc-number">10</div>
-                    <div class="hc-content">
-                        <h4>Alianza de Nube Pública</h4>
-                        <p>En lugar de invertir capital inmovilizado en Data Centers propios, se rentan clústeres a hiperescaladores con estrictas normas de seguridad, garantizando rapidez y el uso de los chips de IA más modernos del mercado.</p>
-                        <div class="hc-badge">Sinergia: AWS, Google Cloud o Microsoft Azure</div>
-                    </div>
-                </div>
-
             </div>
         </section>
 
     </main>
 
     <script>
-        // --- 1. Intersection Observer for Scroll Animations ---
+        // Intersection Observer for Scroll Animations
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -1114,7 +1385,7 @@
             observer.observe(section);
         });
 
-        // --- 2. Dynamic Navigation Active State ---
+        // Dynamic Navigation Active State
         const sections = document.querySelectorAll("section");
         const navLi = document.querySelectorAll(".nav-links a");
 
@@ -1139,7 +1410,7 @@
             });
         });
 
-        // --- 3. Interactive Parallax for 3D Hero Core ---
+        // Interactive Parallax for 3D Hero Core 
         const heroSection = document.getElementById('inicio');
         const core3d = document.getElementById('core-3d');
         
@@ -1156,7 +1427,7 @@
             core3d.style.transform = `rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)`;
         });
 
-        // --- 4. Interactive Network Canvas Background ---
+        // Interactive Network Canvas Background
         const canvas = document.getElementById('network-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
