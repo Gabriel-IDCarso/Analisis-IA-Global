@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA en Telecomunicaciones Globales | AMX Insight</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            /* AMX / Telmex Executive Dark Palette */
+            --bg-base: #030712;
+            --bg-surface: rgba(10, 19, 34, 0.7);
+            --bg-surface-elevated: rgba(17, 29, 51, 0.9);
+            
+            /* Gris oscuro neutro/carbón para el sidebar */
+            --nav-bg: rgba(40, 44, 52, 0.98); 
+            
+            --primary-blue: #0056b3;
+            --accent-cyan: #00d2ff;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --border-color: rgba(30, 41, 59, 0.7);
+            --glow-shadow: 0 0 25px rgba(0, 210, 255, 0.2);
+        }
+
+        /* Base Typography Increased for Legibility */
+        html {
+            font-size: 18px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- Dynamic Canvas Background --- */
+        #network-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at center, #0a1322 0%, #030712 100%);
+        }
+
+        /* --- Scrollbar --- */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: #333d4b; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-blue); }
+
+        /* --- Navigation Sidebar --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 100vh;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            box-shadow: 5px 0 30px rgba(0,0,0,0.6);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 3.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .brand span { color: var(--accent-cyan); }
+
+        .brand-dot {
+            width: 14px;
+            height: 14px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent-cyan);
+            animation: pulse 2s infinite;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #9ba4b5; /* Tono de gris claro para contraste en el sidebar */
+            font-size: 1.05rem;
+            font-weight: 500;
+            padding: 1rem 1.2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: block;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .nav-links a:hover {
+            background: rgba(0, 210, 255, 0.08);
+            color: var(--accent-cyan);
+            transform: translateX(5px);
+        }
+
+        .nav-links a.active {
+            background: linear-gradient(90deg, rgba(0, 210, 255, 0.15) 0%, transparent 100%);
+            color: var(--accent-cyan);
+            border-left: 4px solid var(--accent-cyan);
+            box-shadow: inset 0 0 10px rgba(0, 210, 255, 0.05);
+        }
+
+        /* --- Main Content --- */
+        main {
+            margin-left: 300px;
+            padding: 5rem;
+            width: calc(100% - 300px);
+            max-width: 1600px;
+        }
+
+        section {
+            margin-bottom: 10rem;
+            scroll-margin-top: 5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- Hero Section & 3D Element --- */
+        #inicio {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            min-height: 80vh;
+            perspective: 1000px;
+        }
+
+        .hero-text {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .hero-graphic {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 400px;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out; 
+        }
+
+        /* 3D Data Core Rings */
+        .ring {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            box-sizing: border-box;
+            transform-style: preserve-3d;
+        }
+
+        .ring:nth-child(1) {
+            border-top: 3px solid var(--accent-cyan);
+            border-bottom: 3px solid var(--primary-blue);
+            animation: rotate3d_1 12s linear infinite;
+            box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.2);
+            width: 350px; height: 350px;
+        }
+
+        .ring:nth-child(2) {
+            border-left: 3px solid var(--accent-cyan);
+            border-right: 3px solid #fff;
+            animation: rotate3d_2 8s linear infinite;
+            width: 250px; height: 250px;
+        }
+
+        .ring:nth-child(3) {
+            background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 60%);
+            opacity: 0.4;
+            animation: pulse_core 3s ease-in-out infinite alternate;
+            width: 150px; height: 150px;
+        }
+
+        @keyframes rotate3d_1 {
+            0% { transform: rotateX(60deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(60deg) rotateY(360deg) rotateZ(360deg); }
+        }
+        @keyframes rotate3d_2 {
+            0% { transform: rotateX(40deg) rotateY(40deg) rotateZ(0deg); }
+            100% { transform: rotateX(40deg) rotateY(40deg) rotateZ(-360deg); }
+        }
+        @keyframes pulse_core {
+            0% { transform: scale(0.8); opacity: 0.3; }
+            100% { transform: scale(1.2); opacity: 0.6; box-shadow: 0 0 50px var(--accent-cyan); }
+        }
+
+        /* --- Typography & Headers --- */
+        h1 {
+            font-size: 3.8rem;
+            line-height: 1.15;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1.5px;
+            text-shadow: 0 10px 30px rgba(0, 210, 255, 0.1);
+        }
+
+        h2 {
+            font-size: 2.6rem;
+            color: #fff;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            letter-spacing: -0.5px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 120px;
+            height: 3px;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 15px var(--accent-cyan);
+            border-radius: 3px;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            color: var(--accent-cyan);
+            margin: 3rem 0 1.5rem 0;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 1.8rem;
+            color: var(--text-muted);
+        }
+
+        .subtitle {
+            font-size: 1.6rem;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            border-left: 4px solid var(--accent-cyan);
+            padding-left: 1rem;
+        }
+
+        /* --- Tables --- */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            background: var(--bg-surface);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            margin-top: 2.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 800px;
+        }
+
+        th {
+            background: var(--bg-surface-elevated);
+            color: #fff;
+            font-weight: 600;
+            padding: 1.5rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        td {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1.05rem;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(0, 210, 255, 0.04); }
+        td strong { color: var(--accent-cyan); font-weight: 600; }
+
+        /* --- Cards & Grids --- */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .card {
+            background: var(--bg-surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-cyan), var(--primary-blue));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 210, 255, 0.15);
+            border-color: rgba(0, 210, 255, 0.4);
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        .card-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.03);
+            position: absolute;
+            top: -15px;
+            right: 15px;
+            pointer-events: none;
+        }
+
+        .card h4 {
+            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* --- Estilo Especial: Pilares Fundamentales --- */
+        .pillar-card {
+            background: linear-gradient(145deg, rgba(17, 29, 51, 0.95), rgba(10, 19, 34, 0.8));
+            border: 1px solid rgba(0, 210, 255, 0.25);
+            box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.05), 0 10px 30px rgba(0,0,0,0.4);
+            padding: 2.5rem;
+            border-radius: 16px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+        
+        .pillar-card:hover {
+            border: 1px solid rgba(0, 210, 255, 0.6);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: inset 0 0 30px rgba(0, 210, 255, 0.1), 0 15px 40px rgba(0, 210, 255, 0.2);
+        }
+
+        .pillar-card h4 {
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pillar-card .pillar-num {
+            background: rgba(0, 210, 255, 0.15);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: 1px solid var(--accent-cyan);
+        }
+
+        .pillar-desc {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* --- List Cards Horizontales para el Top 10 --- */
+        .list-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .horizontal-card {
+            background: var(--bg-surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .horizontal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-cyan), var(--primary-blue));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .horizontal-card:hover {
+            transform: translateX(15px); /* Deslizamiento lateral */
+            box-shadow: 0 20px 40px rgba(0, 210, 255, 0.15);
+            border-color: rgba(0, 210, 255, 0.4);
+        }
+
+        .horizontal-card:hover::before { opacity: 1; }
+
+        .hc-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.08);
+            flex-shrink: 0;
+            width: 90px;
+            text-align: center;
+        }
+
+        .hc-content {
+            flex-grow: 1;
+        }
+
+        .hc-content h4 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .hc-content p {
+            margin-bottom: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .hc-badge {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 86, 179, 0.2);
+            border: 1px solid var(--primary-blue);
+            color: var(--accent-cyan);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* --- Animaciones de Aparición --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 210, 255, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.1);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 1200px) {
+            #inicio { flex-direction: column; text-align: center; justify-content: center; padding-top: 5rem; }
+            .hero-graphic { height: 300px; margin-top: 2rem; }
+            .subtitle { border-left: none; border-bottom: 2px solid var(--accent-cyan); padding-bottom: 1rem; display: inline-block; }
+        }
+
+        @media (max-width: 1024px) {
+            nav { width: 250px; padding: 2rem 1.5rem; }
+            main { margin-left: 250px; width: calc(100% - 250px); padding: 4rem 3rem; }
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.2rem; }
+        }
+
+        @media (max-width: 768px) {
+            html { font-size: 16px; }
+            body { flex-direction: column; }
+            
+            nav {
+                width: 100%;
+                height: auto;
+                position: sticky;
+                padding: 1.5rem;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                z-index: 100;
+                background: rgba(40, 44, 52, 1); /* Sólido en móvil */
+            }
+            .brand { margin-bottom: 1.5rem; }
+            .nav-links { 
+                flex-direction: row; 
+                overflow-x: auto;
+                padding-bottom: 10px;
+                scroll-snap-type: x mandatory;
+            }
+            .nav-links a { 
+                padding: 0.8rem 1.5rem; 
+                border-left: none; 
+                border-bottom: 4px solid transparent; 
+                white-space: nowrap;
+                scroll-snap-align: start;
+            }
+            .nav-links a.active { 
+                border-left: none; 
+                border-bottom: 4px solid var(--accent-cyan); 
+                background: linear-gradient(to top, rgba(0, 210, 255, 0.15) 0%, transparent 100%); 
+            }
+            
+            main { margin-left: 0; width: 100%; padding: 2rem 1.5rem; }
+            h1 { font-size: 2.5rem; }
+            .grid-cards { grid-template-columns: 1fr; }
+            
+            /* Ajuste de tarjetas horizontales para móvil */
+            .horizontal-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            .hc-number {
+                width: auto;
+                font-size: 3rem;
+                text-align: left;
+                margin-bottom: -15px;
+            }
+            .horizontal-card:hover {
+                transform: translateY(-5px); /* Deslizamiento vertical en móvil en vez de horizontal */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fondo de Red Tecnológica Interactiva -->
+    <canvas id="network-canvas"></canvas>
+
+    <!-- Sidebar Navigation -->
+    <nav>
+        <div class="brand">
+            <div class="brand-dot"></div>
+            AMX <span>Insight</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#inicio" class="active">00. Portada</a></li>
+            <li><a href="#metodologia">01. Metodología</a></li>
+            <li><a href="#asia">02. Asia: Cómputo</a></li>
+            <li><a href="#europa">03. Europa: Eficiencia</a></li>
+            <li><a href="#africa">04. África: Fintech</a></li>
+            <li><a href="#america">05. América: Escala</a></li>
+            <li><a href="#oceania">06. Oceanía: Satelital</a></li>
+            <li><a href="#estrategia">07. Estrategia AMX</a></li>
+            <li><a href="#top10">08. Top 10 Proyectos</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        
+        <!-- Hero Section con Elemento 3D Interactivo -->
+        <section id="inicio" class="reveal active">
+            <div class="hero-text">
+                <div class="badge">Documento Maestro Integrado</div>
+                <h1>Inteligencia Artificial en<br>Telecomunicaciones Globales</h1>
+                <p class="subtitle">De la automatización de operaciones a la construcción de redes inteligentes, resilientes y financieramente relevantes.</p>
+                <p>Análisis actualizado a agosto de 2026, diseñado para formular una estrategia factible para América Móvil en LATAM.</p>
+            </div>
+            <!-- Elemento 3D Interactivo (Este sí reacciona al mouse) -->
+            <div class="hero-graphic" id="core-3d">
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+            </div>
+        </section>
+
+        <!-- Section 1 -->
+        <section id="metodologia" class="reveal">
+            <h2>1. Metodología y Criterios de Consolidación</h2>
+            <div class="card" style="margin-top: 1rem;">
+                <p><strong>Selección de empresas:</strong> El ranking por continente se basa en ingresos anuales, capitalización de mercado y base de suscriptores, tomando en cuenta reportes financieros de 2025 y el primer semestre de 2026. El continente americano se agrupa como una sola región.</p>
+                <p><strong>Precisión Financiera:</strong> Los datos reflejan cifras oficiales o estimaciones del sector confirmadas; cuando un ahorro financiero no es exclusivamente atribuible a la IA (sino a programas de transformación amplios), se ha etiquetado de manera transparente.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Asia -->
+        <section id="asia" class="reveal">
+            <h2>2. Líderes Asiáticos: Infraestructura Soberana</h2>
+            <p>En Asia, las empresas han evolucionado para convertirse en proveedores masivos de poder de cómputo de IA para sus gobiernos e industrias.</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Empresa</th>
+                            <th>Proyecto Destacado</th>
+                            <th>¿Qué hace en la práctica?</th>
+                            <th>Impacto (US$) / Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>China Mobile</strong></td>
+                            <td>Copiloto GenAI con Nokia</td>
+                            <td>Un asistente invisible que ayuda a los ingenieros a reparar la red hablando con ellos en lenguaje normal.</td>
+                            <td>Ahorro: <strong>$7M</strong>. Ingresos IA crecieron 279%.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NTT (Japón)</strong></td>
+                            <td>Adquisición NTT Data</td>
+                            <td>Construir cables especiales que gastan poquísima luz y mueven datos a velocidades increíbles.</td>
+                            <td>Inversión: <strong>$16,400M</strong>. Reduce 99% el consumo de energía.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>China Telecom</strong></td>
+                            <td>Red WAN de IA</td>
+                            <td>Conectar varias ciudades como si fueran una sola súper computadora.</td>
+                            <td>Logró un <strong>95%</strong> de eficiencia en entrenamiento distribuido.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SoftBank</strong></td>
+                            <td>OpenAI y Arm</td>
+                            <td>Invertir en los creadores de ChatGPT y chips de IA para dominar la tecnología del futuro.</td>
+                            <td>Ganancia: <strong>$4,200M</strong> (trimestre). El 60%+ de su valor está en IA.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>China Unicom</strong></td>
+                            <td>Capex a Cómputo IA</td>
+                            <td>Dejar de gastar en antenas normales para comprar computadoras gigantes para IA.</td>
+                            <td>Capex IA: <strong>$7,200M</strong>. Ingresos IA crecieron 147%.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 3: Europa -->
+        <section id="europa" class="reveal">
+            <h2>3. Líderes Europeos: Eficiencia y Reducción</h2>
+            <p>El mercado europeo utiliza la IA para eficientar operaciones pesadas, establecer redes "verdes" y firmar alianzas con gigantes estadounidenses.</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Empresa</th>
+                            <th>Proyecto Destacado</th>
+                            <th>¿Qué hace en la práctica?</th>
+                            <th>Impacto / Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Deutsche Telekom</strong></td>
+                            <td>Industrial AI Cloud</td>
+                            <td>Una "fábrica de cerebros artificiales" que le rentan a otras empresas B2B.</td>
+                            <td>Despliegue de <strong>10,000 GPUs</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vodafone</strong></td>
+                            <td>SuperAgent (Microsoft)</td>
+                            <td>Un recepcionista virtual que atiende a miles a la vez sin dejarlos en espera.</td>
+                            <td>Inversión: <strong>$1,500M</strong>. Meta: ahorrar €1,100M anuales (~11,000 recortes).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Orange</strong></td>
+                            <td>Automatización RPA</td>
+                            <td>Robots de software que hacen el papeleo administrativo súper rápido.</td>
+                            <td>Ahorro global: <strong>€600M</strong>. 500,000 horas de trabajo anuales ahorradas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Telefónica</strong></td>
+                            <td>Compresión de IA</td>
+                            <td>Hacer que los "cerebros" de IA sean pequeños para gastar menos luz.</td>
+                            <td>Ahorro del <strong>75%</strong> de energía al comprimir LLMs un 95%.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BT Group</strong></td>
+                            <td>Transformación Digital</td>
+                            <td>Cambiar la forma en que trabaja toda la empresa usando IA.</td>
+                            <td>Ahorro anual: <strong>£580M</strong>. Acumuló £1,500M en dos años.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: África -->
+        <section id="africa" class="reveal">
+            <h2>4. Líderes Africanos: Fintech y Resiliencia</h2>
+            <p>El enfoque africano busca robustecer la inclusión financiera y proteger las redes contra cortes eléctricos o fraudes, más que recortar personal.</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Empresa</th>
+                            <th>Proyecto Destacado</th>
+                            <th>¿Qué hace en la práctica?</th>
+                            <th>Impacto / Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MTN Group</strong></td>
+                            <td>Centro de datos IA</td>
+                            <td>Edificios blindados llenos de computadoras para que África tenga su propia IA.</td>
+                            <td>Inversión: <strong>$240M</strong>. Ahorro acumulado: $400M.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vodacom</strong></td>
+                            <td>M-Pesa 2.0 (Google)</td>
+                            <td>Un cajero automático virtual en tu celular que nunca se cae.</td>
+                            <td>Inversión: <strong>$1,000M</strong>. Dinero móvil procesó $525,600M.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Orange MEA</strong></td>
+                            <td>IA lenguas africanas</td>
+                            <td>Enseñar a computadoras a entender dialectos locales para accesibilidad.</td>
+                            <td>Ingresos divisionales: <strong>~$6,800M</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Airtel Africa</strong></td>
+                            <td>Alerta Fraude SMS</td>
+                            <td>Un perro guardián que lee mensajes y bloquea estafas al instante.</td>
+                            <td>EBITDA creció <strong>35.9%</strong>. Primer servicio en África.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Safaricom</strong></td>
+                            <td>Zuri Bot (AWS)</td>
+                            <td>Un detective virtual que atrapa ladrones digitales de identidades.</td>
+                            <td>Inversión IA: <strong>$500M</strong>. 89% de precisión anti-ingeniería social.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 5: América -->
+        <section id="america" class="reveal">
+            <h2>5. Líderes Americanos: Escala y Automatización</h2>
+            <p>EE. UU. domina el volumen financiero con inversiones colosales y profundas reestructuraciones laborales ligadas a la automatización.</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Empresa</th>
+                            <th>Proyecto Destacado</th>
+                            <th>¿Qué hace en la práctica?</th>
+                            <th>Impacto / Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Verizon</strong></td>
+                            <td>Atención IA Integral</td>
+                            <td>Un súper agente telefónico artificial que nunca se cansa.</td>
+                            <td>Meta de ahorro: <strong>$5,000-$9,000M</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AT&T</strong></td>
+                            <td>ActiveArmor</td>
+                            <td>Un escudo mágico que bloquea miles de millones de llamadas de extorsión.</td>
+                            <td>Ahorro: <strong>$1,000M</strong> (2025). Bloquea 2,500M de robollamadas al mes.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>T-Mobile US</strong></td>
+                            <td>IntentCX (OpenAI)</td>
+                            <td>IA que "adivina" por qué llamas antes de que hables.</td>
+                            <td>Pioneros en decisiones basadas en intención.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Comcast</strong></td>
+                            <td>Virtual Technician</td>
+                            <td>Un técnico invisible que arregla fallas de internet desde lejos.</td>
+                            <td>Logra <strong>70%</strong> de resolución técnica sin humanos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>América Móvil</strong></td>
+                            <td>Monitoreo y Agentes IA</td>
+                            <td>Robots que contestan dudas y vigilan que la señal no se caiga.</td>
+                            <td>Compensó parte del aumento de <strong>$46,400M MXN</strong> en OPEX.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 6: Oceanía -->
+        <section id="oceania" class="reveal">
+            <h2>6. Líderes de Oceanía: Satelital y Ciberseguridad</h2>
+            <p>En una geografía vasta, la IA se enfoca en mantener redes regionales y fusionarse con la nueva conectividad satelital.</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Empresa</th>
+                            <th>Proyecto Destacado</th>
+                            <th>¿Qué hace en la práctica?</th>
+                            <th>Impacto / Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Telstra</strong></td>
+                            <td>AskTelstra</td>
+                            <td>Un soplón inteligente que le da al empleado la respuesta a tu problema.</td>
+                            <td>Ahorro laboral: <strong>AUD $181M</strong>. 90% más efectividad.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Optus</strong></td>
+                            <td>AI Concierge</td>
+                            <td>Filtro automático para que los humanos atiendan solo lo difícil.</td>
+                            <td>Contrato B2B: <strong>US$1,600M</strong>. Reduce 15% las consultas a humanos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TPG Telecom</strong></td>
+                            <td>Analítica Ericsson</td>
+                            <td>Radar sensible que detecta fallos antes de que te des cuenta.</td>
+                            <td>Ahorro red: <strong>US$375-440M</strong> (indirecto por red compartida).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Spark NZ</strong></td>
+                            <td>Marketing "Brain"</td>
+                            <td>Experto en publicidad que manda promociones altamente efectivas.</td>
+                            <td>Aumento de <strong>20x</strong> en rendimiento de campañas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>One NZ</strong></td>
+                            <td>Transición Satelital</td>
+                            <td>Conecta el celular a satélites (Starlink) en medio de la nada.</td>
+                            <td>Meta ROI: <strong>5x</strong>. +30 agentes IA en operación.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 7: Estrategia AMX -->
+        <section id="estrategia" class="reveal">
+            <h2>7. Análisis Estratégico: América Móvil</h2>
+            
+            <h3>7.1 El Contexto Desafiante (México y LATAM)</h3>
+            <p>Con +410 millones de usuarios, América Móvil enfrenta dinámicas muy distintas a Europa. Replicar inversiones masivas en servidores (como Deutsche Telekom) sería ineficiente. Los principales retos son:</p>
+            <div class="grid-cards" style="margin-bottom: 4rem;">
+                <div class="card">
+                    <span class="card-number">01</span>
+                    <h4>Fraude y Extorsión</h4>
+                    <p>México perdió US$1,067 millones por fraudes digitales en 2025.</p>
+                </div>
+                <div class="card">
+                    <span class="card-number">02</span>
+                    <h4>Baja Bancarización</h4>
+                    <p>22.5 millones de adultos en México no tienen cuenta bancaria.</p>
+                </div>
+                <div class="card">
+                    <span class="card-number">03</span>
+                    <h4>Sensibilidad Laboral</h4>
+                    <p>El pasivo pensionario de Telmex es de Ps.37,176M (5x su EBITDA trimestral), haciendo riesgosos los recortes masivos.</p>
+                </div>
+            </div>
+
+            <h3>7.2 Los 5 Pilares Fundamentales de Implementación</h3>
+            <p>Para alcanzar un nivel altamente competitivo, la estrategia requiere asentar estos 5 pilares operativos a través de plataformas líderes (SaaS):</p>
+            
+            <div class="grid-cards">
+                <!-- Pilar 1 -->
+                <div class="pillar-card">
+                    <h4><span class="pillar-num">1</span> Atención Automatizada</h4>
+                    <p class="pillar-desc">Resolver recargas y fallas directamente en la app donde vive el cliente latinoamericano: WhatsApp. Esto evita que el usuario tenga que descargar apps pesadas, reduce el tiempo de espera a cero y descarga de presión a los call centers humanos, permitiéndoles enfocarse en ventas o retención cruzada.</p>
+                    <div class="badge">Sinergia: Google Dialogflow / Azure Bot + Zendesk</div>
+                </div>
+                
+                <!-- Pilar 2 -->
+                <div class="pillar-card">
+                    <h4><span class="pillar-num">2</span> Mantenimiento y Energía</h4>
+                    <p class="pillar-desc">La red "siente" su propio estado mediante sensores, programando mantenimientos antes de que el usuario reporte la caída. Además, optimiza el encendido de antenas (gestión inteligente del tráfico), lo que ahorra luz y diésel, reduciendo la huella de carbono y el OPEX drásticamente.</p>
+                    <div class="badge">Sinergia: Nokia, Ericsson, Huawei + AWS</div>
+                </div>
+
+                <!-- Pilar 3 -->
+                <div class="pillar-card">
+                    <h4><span class="pillar-num">3</span> Ciberseguridad Activa</h4>
+                    <p class="pillar-desc">Escudo en tiempo real que protege la facturación. Al analizar metadatos y patrones de comportamiento, el sistema detecta y bloquea llamadas de extorsión y SIM Swapping al instante, protegiendo la identidad bancaria de los usuarios y blindando la reputación de la marca.</p>
+                    <div class="badge">Sinergia: Feedzai / IBM Watson</div>
+                </div>
+
+                <!-- Pilar 4 -->
+                <div class="pillar-card">
+                    <h4><span class="pillar-num">4</span> Auditoría Inteligente</h4>
+                    <p class="pillar-desc">Convertir a texto el 100% de las conversaciones del call center. Esto permite pasar de escuchar muestras aleatorias (1%) a analizar la totalidad de las interacciones, detectando malas prácticas, quejas regionales en tiempo real y oportunidades exactas de capacitación para los agentes.</p>
+                    <div class="badge">Sinergia: Azure Voice / Verint</div>
+                </div>
+
+                <!-- Pilar 5 -->
+                <div class="pillar-card">
+                    <h4><span class="pillar-num">5</span> Predicción de Churn</h4>
+                    <p class="pillar-desc">Al cruzar datos de llamadas caídas, quejas en soporte y consumo de datos, el algoritmo predice quién está a punto de cancelar o irse con la competencia (hasta 90 días antes). Esto activa campañas de retención automáticas (promociones o bonos) justo en el momento de mayor vulnerabilidad del cliente.</p>
+                    <div class="badge">Sinergia: Salesforce Einstein + Google Cloud</div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 4rem;">7.3 Estimaciones Financieras (Benchmark)</h3>
+            <p>Combinando la resiliencia de <strong>Telefónica</strong> (compresión IA para ahorrar energía) y la estrategia fintech de <strong>Vodacom (M-Pesa)</strong>, se proyecta:</p>
+            <ul>
+                <li style="margin-bottom:12px; color:var(--text-main);"><strong>Contención OPEX:</strong> Ahorros proyectados de <strong>US$250 a $500 millones anuales</strong> en un horizonte de 3 a 5 años (Benchmark AT&T).</li>
+                <li style="color:var(--text-main);"><strong>Nuevos Ingresos Fintech:</strong> Claro Pay e Inbursa podrían representar entre el <strong>1% y el 3%</strong> de los ingresos del grupo a mediano plazo.</li>
+            </ul>
+        </section>
+
+        <!-- Section 8: Top 10 -->
+        <section id="top10" class="reveal">
+            <h2>8. Top 10: Proyectos Estratégicos</h2>
+            <p>El plan de acción ejecutivo detallando el enfoque práctico y las alianzas requeridas.</p>
+
+            <div class="list-cards">
+                <!-- Card 1 -->
+                <div class="horizontal-card">
+                    <div class="hc-number">01</div>
+                    <div class="hc-content">
+                        <h4>Súper-app Financiera</h4>
+                        <p>Permite otorgar micro-préstamos basados en el historial de recargas prepago, abriendo una nueva línea de ingresos en mercados de baja bancarización. Transforma la billetera digital para recibir dinero y préstamos evaluados por IA al instante.</p>
+                        <div class="hc-badge">Sinergia: Claro Pay + Grupo Inbursa (Modelo Vodacom)</div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="horizontal-card">
+                    <div class="hc-number">02</div>
+                    <div class="hc-content">
+                        <h4>Copiloto en WhatsApp</h4>
+                        <p>Un asistente virtual capaz de entender audios, texto informal y modismos locales, resolviendo solicitudes transaccionales (recargas, fallas) al instante para reducir la saturación del call center humano sin dejar a nadie en espera.</p>
+                        <div class="hc-badge">Sinergia: Google Cloud / Azure Bot Service + Zendesk</div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="horizontal-card">
+                    <div class="hc-number">03</div>
+                    <div class="hc-content">
+                        <h4>Bloqueador Nacional Antifraude</h4>
+                        <p>Monitorea metadatos en tiempo real para bloquear llamadas de números reportados por extorsión, previniendo el robo de identidad por SIM Swapping y brindando un escudo de seguridad antes de que la llamada suene.</p>
+                        <div class="hc-badge">Sinergia: Feedzai o IBM Watson (Modelo AT&T)</div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="horizontal-card">
+                    <div class="hc-number">04</div>
+                    <div class="hc-content">
+                        <h4>Mantenimiento Predictivo</h4>
+                        <p>Analiza las fluctuaciones de señal y factores climáticos para despachar a las cuadrillas técnicas con los repuestos exactos antes del corte total del servicio, reparando desperfectos en los cables antes de que se pierda la señal.</p>
+                        <div class="hc-badge">Sinergia: Nokia, Ericsson, Huawei + analítica AWS</div>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="horizontal-card">
+                    <div class="hc-number">05</div>
+                    <div class="hc-content">
+                        <h4>Gestión Energética Celular</h4>
+                        <p>Las antenas entran en modo de suspensión durante la madrugada o se apoyan en paneles solares según pronósticos meteorológicos, optimizando CAPEX/OPEX al ahorrar luz y diésel de forma drástica en zonas rurales.</p>
+                        <div class="hc-badge">Sinergia: Fabricantes de infraestructura (Modelo MTN)</div>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="horizontal-card">
+                    <div class="hc-number">06</div>
+                    <div class="hc-content">
+                        <h4>Compresión de IA</h4>
+                        <p>Usa técnicas de poda neuronal para reducir el peso de los modelos en un 95%, logrando operar IA compleja en servidores locales sin incurrir en costos masivos de nube y consumiendo mucho menos electricidad.</p>
+                        <div class="hc-badge">Sinergia: Multiverse Computing (Modelo Telefónica)</div>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="horizontal-card">
+                    <div class="hc-number">07</div>
+                    <div class="hc-content">
+                        <h4>Motor Antichurn y Ofertas</h4>
+                        <p>Cruza datos de navegación y quejas para identificar qué cliente de prepago se quedó sin saldo o está cotizando con la competencia, detonando una oferta automática o promoción en tiempo real para retenerlo.</p>
+                        <div class="hc-badge">Sinergia: Salesforce (Einstein AI)</div>
+                    </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="horizontal-card">
+                    <div class="hc-number">08</div>
+                    <div class="hc-content">
+                        <h4>Automatización Back-Office</h4>
+                        <p>Robots de software (RPA) que sustituyen la captura manual de datos financieros y la conciliación de contratos con proveedores, logrando un 99% de precisión y liberando miles de horas laborales del personal humano.</p>
+                        <div class="hc-badge">Sinergia: Herramientas estándar RPA (Modelo Orange)</div>
+                    </div>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="horizontal-card">
+                    <div class="hc-number">09</div>
+                    <div class="hc-content">
+                        <h4>Productividad Sindical</h4>
+                        <p>Implementación de un asistente amigable que ayuda a los técnicos de base a encontrar soluciones en manuales gigantes en segundos y a redactar reportes desde sus PCs, elevando la eficiencia sin generar fricción laboral.</p>
+                        <div class="hc-badge">Sinergia: Microsoft Azure corporativo interno</div>
+                    </div>
+                </div>
+
+                <!-- Card 10 -->
+                <div class="horizontal-card">
+                    <div class="hc-number">10</div>
+                    <div class="hc-content">
+                        <h4>Alianza de Nube Pública</h4>
+                        <p>En lugar de invertir capital inmovilizado en Data Centers propios, se rentan clústeres a hiperescaladores con estrictas normas de seguridad, garantizando rapidez y el uso de los chips de IA más modernos del mercado.</p>
+                        <div class="hc-badge">Sinergia: AWS, Google Cloud o Microsoft Azure</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // --- 1. Intersection Observer for Scroll Animations ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // --- 2. Dynamic Navigation Active State ---
+        const sections = document.querySelectorAll("section");
+        const navLi = document.querySelectorAll(".nav-links a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const offset = window.innerWidth > 768 ? 200 : 300; 
+                if (scrollY >= (sectionTop - offset)) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLi.forEach((a) => {
+                a.classList.remove("active");
+                if (a.getAttribute("href").includes(current)) {
+                    a.classList.add("active");
+                    if(window.innerWidth <= 768) {
+                        a.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    }
+                }
+            });
+        });
+
+        // --- 3. Interactive Parallax for 3D Hero Core ---
+        const heroSection = document.getElementById('inicio');
+        const core3d = document.getElementById('core-3d');
+        
+        heroSection.addEventListener('mousemove', (e) => {
+            if(window.innerWidth > 1024) { 
+                const x = (window.innerWidth / 2 - e.pageX) / 30;
+                const y = (window.innerHeight / 2 - e.pageY) / 30;
+                
+                core3d.style.transform = `rotateY(${x}deg) rotateX(${y}deg) scale3d(1.05, 1.05, 1.05)`;
+            }
+        });
+
+        heroSection.addEventListener('mouseleave', () => {
+            core3d.style.transform = `rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)`;
+        });
+
+        // --- 4. Interactive Network Canvas Background ---
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const particleCount = window.innerWidth > 768 ? 70 : 30; 
+        let mouse = { x: null, y: null };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 210, 255, 0.6)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            resizeCanvas();
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, canvas.width);
+            gradient.addColorStop(0, '#0a1322');
+            gradient.addColorStop(1, '#030712');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 120) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 210, 255, ${0.15 - distance / 800})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+
+                if (mouse.x && mouse.y) {
+                    const dxMouse = particles[i].x - mouse.x;
+                    const dyMouse = particles[i].y - mouse.y;
+                    const distanceMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+                    
+                    if (distanceMouse < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 86, 179, ${0.4 - distanceMouse / 375})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                        
+                        particles[i].x -= dxMouse * 0.01;
+                        particles[i].y -= dyMouse * 0.01;
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+    </script>
+</body>
+</html>
